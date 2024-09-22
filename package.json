@@ -2,22 +2,33 @@
   "name": "instock-frontend",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:open": "cypress open",
+    "test:open:mobile": "cypress open --config viewportWidth=410,viewportHeight=860",
+    "test": "cypress run",
+    "test:mobile": "cypress run --config viewportWidth=410,viewportHeight=860"
   },
   "dependencies": {
+    "crypto-js": "^4.2.0",
+    "i18next": "^23.14.0",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "react-i18next": "^15.0.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "axios": "^1.7.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/axios": "^0.14.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "cypress": "^13.14.2",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
