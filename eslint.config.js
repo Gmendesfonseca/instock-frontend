@@ -32,8 +32,6 @@ export default {
       'warn',
       { allowConstantExport: true },
     ],
-    // 'no-unused-vars': ['error'],
-    // 'no-explicit-any': 'on',
   },
   ignorePatterns: ['dist'],
 };

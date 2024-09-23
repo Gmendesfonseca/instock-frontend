@@ -2,6 +2,7 @@
   "name": "instock-frontend",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -13,14 +14,14 @@
     "test:mobile": "cypress run --config viewportWidth=410,viewportHeight=860"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "crypto-js": "^4.2.0",
     "i18next": "^23.14.0",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
-    "react-i18next": "^15.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "axios": "^1.7.7"
+    "react-i18next": "^15.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -35,6 +36,6 @@
     "globals": "^15.9.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.7"
   }
 }

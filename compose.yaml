@@ -13,8 +13,6 @@ services:
       - /usr/src/node_modules
     environment:
       - PORT=${PORT}
-      - HOST=${HOST}
-      - NODE_ENV=${NODE_ENV}
       - REACT_APP_API_URL=${REACT_APP_API_URL}
       - CHOKIDAR_USEPOLLING=true
 networks:
