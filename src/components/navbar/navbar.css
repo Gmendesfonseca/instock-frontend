@@ -1,0 +1,21 @@
+.nav {
+  background-color: white;
+}
+
+.nav > ul {
+  display: flex;
+  height: auto;
+  width: 100vw;
+  flex-direction: row;
+  list-style: none;
+}
+
+.nav ul details {
+  padding: 24px;
+}
+
+.nav summary ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}

@@ -3,7 +3,7 @@ services:
     container_name: instock-frontend-app
     build:
       context: .
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     networks:
@@ -12,8 +12,8 @@ services:
       - ./:/usr/src/
       - /usr/src/node_modules
     environment:
-      - PORT=${PORT}
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
+      - PORT=3000
+      - REACT_APP_API_URL=http://instock-backend:5000
       - CHOKIDAR_USEPOLLING=true
 networks:
   instock-network:
