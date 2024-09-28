@@ -1,12 +1,17 @@
-import Navbar from './components/navbar/Navbar';
+import { RenderRoutes } from './router/router';
+// import { PermissionsProvider } from './contexts/Permissions';
+// import { AuthProvider } from './contexts/AuthContext';
+// import ProfileContextProvider from './contexts/ProfileContext';
 
 function App() {
   return (
-    <>
-      <header>
-        <Navbar />
-      </header>
-    </>
+    // <AuthProvider>
+    //   <ProfileContextProvider>
+    //     <PermissionsProvider>
+    <RenderRoutes />
+    //     </PermissionsProvider>
+    //   </ProfileContextProvider>
+    // </AuthProvider>
   );
 }
 
