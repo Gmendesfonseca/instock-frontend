@@ -2,8 +2,9 @@ import { lazy } from 'react';
 // import { IUser } from '../interfaces/User';
 // import { routePermissions } from '../utils/permissions';
 import { RouteObject } from 'react-router-dom';
-
-const Home = lazy(() => import('../pages/Home'));
+import Login from '../pages/login/Login';
+import Register from '../pages/register/Register';
+import Home from '../pages/home/Home';
 
 export type RouteType = {
   path: string;
@@ -17,12 +18,16 @@ export type RouteType = {
 export function createRoutes() {
   const routes: RouteType[] = [
     {
-      path: '/home',
-      element: <Home />,
+      path: '/',
+      element: <Login />,
     },
     {
-      path: '/',
-      element: <div>Login</div>,
+      path: '/register',
+      element: <Register />,
+    },
+    {
+      path: '/home',
+      element: <Home />,
     },
     {
       path: '/404',
