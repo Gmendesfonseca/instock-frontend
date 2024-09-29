@@ -1,13 +1,11 @@
 import { FC } from 'react';
-
-import Navbar from '../../components/navbar/Navbar';
+import DefaultMainLayout from '../../header-app/components/DefaultMainLayout';
 
 const Home: FC = () => {
   return (
-    <div>
-      <Navbar />
+    <DefaultMainLayout>
       <h1>Home</h1>
-    </div>
+    </DefaultMainLayout>
   );
 };
 

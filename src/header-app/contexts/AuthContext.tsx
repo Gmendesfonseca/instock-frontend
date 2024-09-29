@@ -4,6 +4,7 @@ import { encode, decode } from '../utils/crypto';
 import { IUser } from '../../interfaces/User';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { api } from '../../services/api';
 import { links } from '../config/links';
 
 export interface VerifyTokenData {
@@ -17,8 +18,14 @@ export interface AuthState {
   user: IUser;
 }
 
+export interface SignInCredentials {
+  email: string;
+  password: string;
+}
+
 export interface AuthContextData {
   user: IUser;
+  signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   updateUser(user: IUser): void;
   refreshToken(): Promise<string | null>;
@@ -43,17 +50,19 @@ const removeAuthCookies = () => {
   Cookies.remove('companySelected', { domain: domainName });
 };
 
-const redirectToCore = () => {
+const redirectToLogin = () => {
   const rule = /[h][t]{2}[p]s?[:][\/]{2}/;
   const urlToRedirect = `${window.location.href.replace(rule, '')}`;
 
-  window.location.href = `${domainName}/?redirect_to=${urlToRedirect}`;
+  window.location.href = `${domainName}/login/?redirect_to=${urlToRedirect}`;
   window.location.href = `${links.web}/home`;
 };
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+export const AuthContext = createContext<AuthContextData>(
+  {} as AuthContextData
+);
 
-const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
+export const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   children,
 }) => {
   const [data, setData] = useState<AuthState>(() => {
@@ -73,15 +82,57 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
 
       return {} as AuthState;
     }
-    signOut();
 
     return {} as AuthState;
   });
 
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
+    try {
+      const response = await api.post(`/auth`, {
+        email,
+        password,
+      });
+
+      const userConfig: any = jwtDecode(response.data.access_token);
+      const { user } = userConfig;
+
+      const { access_token, expires_in } = response.data;
+
+      let expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 320);
+
+      Cookies.set('authToken', encode(access_token), {
+        domain: domainName,
+        secure: true,
+        expires: expirationDate,
+      });
+
+      Cookies.set('expiresIn', encode(expires_in.toString()), {
+        domain: domainName,
+        secure: true,
+        expires: expirationDate,
+      });
+
+      Cookies.set('user', encode(JSON.stringify(user)), {
+        domain: domainName,
+        secure: true,
+        expires: expirationDate,
+      });
+
+      setData({
+        user,
+        expiresIn: expires_in,
+        token: access_token,
+      });
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  }, []);
+
   function signOut() {
     removeAuthCookies();
     window.localStorage.removeItem('avatar');
-    redirectToCore();
+    redirectToLogin();
   }
 
   const updateUser = useCallback(
@@ -186,6 +237,7 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
     <AuthContext.Provider
       value={{
         user: data.user,
+        signIn,
         signOut,
         updateUser,
         refreshToken: doRefreshToken,
@@ -199,20 +251,16 @@ const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
 async function validateToken(
   verifyTokenData: VerifyTokenData
 ): Promise<boolean> {
-  try {
-    const response = await axios.post(`${links.api}/account/verify`, {
-      email: verifyTokenData.email,
-      token: verifyTokenData.token,
-    });
+  const response = await axios.post(`${links.api}/account/verify`, {
+    email: verifyTokenData.email,
+    token: verifyTokenData.token,
+  });
 
-    if (response.status === 200 && !response.data.errors) {
-      return true;
-    }
-
-    return false;
-  } catch (error) {
-    return false;
+  if (response.status === 200 && !response.data.errors) {
+    return true;
   }
+
+  return false;
 }
 
 function getSignedUser(): IUser | false {
@@ -230,4 +278,4 @@ function getSignedUser(): IUser | false {
   }
 }
 
-export { AuthContext, AuthProvider, validateToken, getSignedUser };
+export default { AuthContext, AuthProvider, validateToken, getSignedUser };

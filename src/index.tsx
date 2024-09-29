@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  process.env.NODE_ENV?.includes('develop') ? (
+  process.env.MODE?.includes('develop') ? (
     <React.StrictMode>
       <App />
     </React.StrictMode>

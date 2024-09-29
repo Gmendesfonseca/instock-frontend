@@ -1,3 +1,6 @@
+import { AuthProvider } from './header-app/contexts/AuthContext';
+import ProfileContextProvider from './header-app/contexts/ProfileContext';
+import { ToastProvider } from './header-app/hooks/toast';
 import { RenderRoutes } from './router/router';
 // import { PermissionsProvider } from './contexts/Permissions';
 // import { AuthProvider } from './contexts/AuthContext';
@@ -5,13 +8,15 @@ import { RenderRoutes } from './router/router';
 
 function App() {
   return (
-    // <AuthProvider>
-    //   <ProfileContextProvider>
     //     <PermissionsProvider>
-    <RenderRoutes />
-    //     </PermissionsProvider>
-    //   </ProfileContextProvider>
-    // </AuthProvider>
+    <ProfileContextProvider>
+      <AuthProvider>
+        <ToastProvider>
+          <RenderRoutes />
+        </ToastProvider>
+      </AuthProvider>
+    </ProfileContextProvider>
+    //</PermissionsProvider>
   );
 }
 

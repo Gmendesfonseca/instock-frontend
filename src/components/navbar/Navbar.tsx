@@ -1,6 +1,21 @@
+import { AxiosInstance } from 'axios';
+import { MeProps } from '../../header-app/interfaces/Me';
+import { IUser } from '../../interfaces/User';
 import './navbar.css';
 
-export default function Navbar() {
+interface props {
+  user: IUser;
+  me: MeProps;
+  api: AxiosInstance;
+  signOut: Function;
+}
+
+const Navbar: React.FC<React.PropsWithChildren<props>> = ({
+  user,
+  me,
+  api,
+  signOut,
+}) => {
   return (
     <nav className='nav'>
       <ul className='nav_list'>
@@ -19,7 +34,16 @@ export default function Navbar() {
             Contact
           </a>
         </li>
+        <li className='nav_item'>
+          <button>
+            <a href='/' className='nav_link' onClick={() => signOut()}>
+              Logout
+            </a>
+          </button>
+        </li>
       </ul>
     </nav>
   );
-}
+};
+
+export default Navbar;

@@ -20,7 +20,7 @@ export interface ProfileContextProps {
   getMe: () => Promise<MeProps>;
 }
 
-export const ProfileContext = createContext<ProfileContextProps>({} as any);
+const ProfileContext = createContext<ProfileContextProps>({} as any);
 
 const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   children,
@@ -28,7 +28,7 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   const [me, setMe] = useState<MeProps>({} as MeProps);
 
   const getMe = useCallback(async () => {
-    const response: AxiosResponse<MeProps> = await api.get(`${api}/auth/me`);
+    const response: AxiosResponse<MeProps> = await api.get(`/me`);
     return response.data;
   }, []);
 
