@@ -14,9 +14,9 @@
   height: 600px;
   width: 500px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #003566;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 50px #003566;
 }
 
 .form_login {
@@ -34,14 +34,19 @@
   width: 100%;
   padding-left: 8px;
   border-radius: 8px;
-  border: 1px solid grey;
+  border: 1px solid white;
 }
 
 .sign_in {
   width: 100px;
   height: 50px;
+  background-color: #ffc300;
+  border: 1px solid #ffc300;
+  color: white;
+  border-radius: 8px;
 }
 
 .navigate_register {
+  color: white;
   width: 300px;
 }

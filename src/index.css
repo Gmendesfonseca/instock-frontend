@@ -4,17 +4,14 @@
   box-sizing: border-box;
 }
 
-:root {
-  background-color: #fafafa;
-}
-
 html,
 body,
 #root {
   font-family: 'Open sans', sans-serif;
+  color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f2f3f5;
+  background-color: #000814;
   width: 100vw;
   height: 100vh;
 }
