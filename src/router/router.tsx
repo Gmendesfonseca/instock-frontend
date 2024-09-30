@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { createRoutes } from './routes';
-// import { Settings } from 'luxon';
-// import { useAuth } from '../hooks/useAuth';
+import { Settings } from 'luxon';
+import { useAuth } from '../header-app/hooks/useAuth';
 import {
   createBrowserRouter,
   Navigate,
@@ -10,7 +10,6 @@ import {
 
 export const RenderRoutes: FC = () => {
   // const { user } = useAuth();
-  // const routes = createRoutes(user.type);
   const routes = createRoutes();
 
   // Settings.defaultLocale = user.config.default_language;

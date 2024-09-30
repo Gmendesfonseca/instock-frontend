@@ -123,12 +123,7 @@ export default function Login() {
           >
             Criar nova conta
           </a>
-          <button
-            data-cy='login_submit'
-            className='sign_in'
-            type='submit'
-            //onClick={() => navigate('/home')}
-          >
+          <button data-cy='login_submit' className='sign_in' type='submit'>
             Sign In
           </button>
         </form>

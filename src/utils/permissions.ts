@@ -6,7 +6,7 @@ export type RoutePermissions = {
 };
 
 export const routePermissions: RoutePermissions = {
-  COMPANY_ACCESS: ['COMPANY', ['PERSON', 'in_check']],
+  COMPANY_ACCESS: ['COMPANY', ['PERSON', 'instock']],
   PERSON_ACCESS: ['PERSON'],
 };
 

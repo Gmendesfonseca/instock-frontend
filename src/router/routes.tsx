@@ -1,6 +1,5 @@
 import { lazy } from 'react';
-// import { IUser } from '../interfaces/User';
-// import { routePermissions } from '../utils/permissions';
+import { routePermissions } from '../utils/permissions';
 import { RouteObject } from 'react-router-dom';
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
@@ -14,7 +13,6 @@ export type RouteType = {
   children?: RouteType[];
 };
 
-// export function createRoutes(userType: IUser['type']) {
 export function createRoutes() {
   const routes: RouteType[] = [
     {
@@ -28,6 +26,11 @@ export function createRoutes() {
     {
       path: '/home',
       element: <Home />,
+    },
+    {
+      path: '/dashboard',
+      element: <div>Dashboard</div>,
+      permissions: routePermissions.COMPANY_ACCESS,
     },
     {
       path: '/404',
