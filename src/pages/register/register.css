@@ -1,9 +1,20 @@
 .register {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   height: 100vh;
+}
+
+.register > img {
+  height: 100%;
+}
+
+.content_register > img {
+  height: 100px;
+  width: 100px;
+  position: relative;
+  top: 16px;
 }
 
 .content_register {
@@ -12,11 +23,10 @@
   align-items: center;
   justify-content: center;
   height: 600px;
-  width: 500px;
+  width: 100%;
   padding: 20px;
-  background-color: #fff;
+  background-color: transparent;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form_register {
@@ -34,14 +44,34 @@
   width: 100%;
   padding-left: 8px;
   border-radius: 8px;
-  border: 1px solid grey;
+  border: 2px solid #fff;
 }
 
 .navigate_login {
+  color: white;
   width: 300px;
 }
 
 .sign_up {
-  width: 100px;
+  width: 300px;
   height: 50px;
+  background-color: #e9d8a6;
+  border: 1px solid #e9d8a6;
+  color: #000;
+  border-radius: 8px;
+  font-size: large;
+  font-weight: 500;
+}
+
+.form_register input:focus {
+  outline: none;
+  font-size: 1.1rem;
+}
+
+.sign_up:hover {
+  box-shadow: 0 0 8px #e9d8a6;
+}
+
+.form_register input:hover {
+  box-shadow: 0 0 8px #e9d8a6;
 }

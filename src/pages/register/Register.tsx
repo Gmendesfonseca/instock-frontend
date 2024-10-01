@@ -1,12 +1,16 @@
 import './register.css';
 import { useNavigate } from 'react-router-dom';
+import bg from '../../../public/bg.png';
+import lock from '../../../public/lock.png';
 
 export default function Register() {
   const navigate = useNavigate();
 
   return (
     <div className='register'>
+      <img src={bg} />
       <div className='content_register'>
+        <img src={lock} />
         <h1>Register</h1>
         <form className='form_register' id='form'>
           <input

@@ -4,14 +4,22 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background: linear-gradient(
+    180deg,
+    hsla(198, 100%, 5%, 1) 0%,
+    hsla(190, 100%, 23%, 1) 100%
+  );
+}
+
 html,
 body,
 #root {
-  font-family: 'Open sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #000814;
+  background: var(--background);
   width: 100vw;
   height: 100vh;
 }

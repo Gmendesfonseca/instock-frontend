@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import { useAuth } from '../../header-app/hooks/useAuth';
 import getValidationErrors from '../../header-app/utils/getValidationErrors';
 import { useToast } from '../../header-app/hooks/toast';
+import bg from '../../../public/bg.png';
+import lock from '../../../public/lock.png';
 
 export default function Login() {
   const query = useQuery();
@@ -51,14 +53,10 @@ export default function Login() {
           abortEarly: false,
         });
 
-        console.log('Validation passed');
-
         await signIn({
           email: data.email,
           password: data.password,
         });
-
-        console.log('Sign in successful');
 
         return window.location.replace(routeToRedirect);
       } catch (err: any) {
@@ -97,8 +95,10 @@ export default function Login() {
 
   return (
     <div className='login'>
+      <img src={bg} />
       <div className='content_login'>
-        <h1>Login</h1>
+        <img src={lock} />
+        <h1>LOGIN</h1>
         <form className='form_login' id='form' onSubmit={handleSubmit}>
           <input
             data-cy='email'

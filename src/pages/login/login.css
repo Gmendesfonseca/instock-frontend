@@ -1,9 +1,20 @@
 .login {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   height: 100vh;
+}
+
+.login > img {
+  height: 100%;
+}
+
+.content_login > img {
+  height: 100px;
+  width: 100px;
+  position: relative;
+  top: 16px;
 }
 
 .content_login {
@@ -12,11 +23,10 @@
   align-items: center;
   justify-content: center;
   height: 600px;
-  width: 500px;
+  width: 100%;
   padding: 20px;
-  background-color: #003566;
+  background-color: transparent;
   border-radius: 8px;
-  box-shadow: 0 0 50px #003566;
 }
 
 .form_login {
@@ -34,19 +44,33 @@
   width: 100%;
   padding-left: 8px;
   border-radius: 8px;
-  border: 1px solid white;
 }
 
 .sign_in {
-  width: 100px;
+  width: 300px;
   height: 50px;
-  background-color: #ffc300;
-  border: 1px solid #ffc300;
-  color: white;
+  background-color: #e9d8a6;
+  border: 2px solid #e9d8a6;
+  color: #000;
   border-radius: 8px;
+  font-size: large;
+  font-weight: 500;
 }
 
 .navigate_register {
   color: white;
   width: 300px;
+}
+
+.form_login input:focus {
+  outline: none;
+  font-size: 1.1rem;
+}
+
+.sign_in:hover {
+  box-shadow: 0 0 8px #e9d8a6;
+}
+
+.form_login input:hover {
+  box-shadow: 0 0 8px #e9d8a6;
 }
