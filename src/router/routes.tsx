@@ -1,9 +1,16 @@
-import { lazy } from 'react';
 import { routePermissions } from '../utils/permissions';
 import { RouteObject } from 'react-router-dom';
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Home from '../pages/home/Home';
+import Dashboard from '@/pages/dashboard/Dashboard';
+
+const modules = {
+  Login: () => import('@/pages/login/Login'),
+  Register: () => import('@/pages/register/Register'),
+  Home: () => import('@/pages/home/Home'),
+  Dashboard: () => import('@/pages/dashboard/Dashboard'),
+};
 
 export type RouteType = {
   path: string;
@@ -29,7 +36,7 @@ export function createRoutes() {
     },
     {
       path: '/dashboard',
-      element: <div>Dashboard</div>,
+      element: <Dashboard />,
       permissions: routePermissions.COMPANY_ACCESS,
     },
     {

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { createRoutes } from './routes';
 import { Settings } from 'luxon';
-import { useAuth } from '../header-app/hooks/useAuth';
+import { useAuth } from '@/header-app/hooks/useAuth';
 import {
   createBrowserRouter,
   Navigate,

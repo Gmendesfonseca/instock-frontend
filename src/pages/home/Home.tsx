@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import DefaultMainLayout from '../../header-app/components/DefaultMainLayout';
+import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 
 const Home: FC = () => {
   return (

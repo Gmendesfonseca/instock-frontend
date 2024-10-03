@@ -1,11 +1,11 @@
 import './login.css';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { useQuery } from '../../header-app/hooks/useQuery';
-import { SignInCredentials } from '../../header-app/contexts/AuthContext';
+import { useQuery } from '@/header-app/hooks/useQuery';
+import { SignInCredentials } from '@/header-app/contexts/AuthContext';
 import * as Yup from 'yup';
-import { useAuth } from '../../header-app/hooks/useAuth';
-import getValidationErrors from '../../header-app/utils/getValidationErrors';
-import { useToast } from '../../header-app/hooks/toast';
+import { useAuth } from '@/header-app/hooks/useAuth';
+import getValidationErrors from '@/header-app/utils/getValidationErrors';
+import { useToast } from '@/header-app/hooks/toast';
 import bg from '../../../public/bg.png';
 import lock from '../../../public/lock.png';
 

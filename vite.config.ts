@@ -9,11 +9,11 @@ function pathResolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
   resolve: {
     alias: { '@': pathResolve('src') },
   },
+  plugins: [react()],
   server: {
-    port: parseInt(env.PORT || '3000'),
+    port: parseInt(env.PORT),
   },
 });
