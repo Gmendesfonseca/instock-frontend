@@ -1,16 +1,9 @@
-import { routePermissions } from '../utils/permissions';
+import { routePermissions } from '@/utils/permissions';
 import { RouteObject } from 'react-router-dom';
-import Login from '../pages/login/Login';
-import Register from '../pages/register/Register';
-import Home from '../pages/home/Home';
+import Login from '@/header-app/pages/login/Login';
+import Register from '@/header-app/pages/register/Register';
+import Home from '@/pages/home/Home';
 import Dashboard from '@/pages/dashboard/Dashboard';
-
-const modules = {
-  Login: () => import('@/pages/login/Login'),
-  Register: () => import('@/pages/register/Register'),
-  Home: () => import('@/pages/home/Home'),
-  Dashboard: () => import('@/pages/dashboard/Dashboard'),
-};
 
 export type RouteType = {
   path: string;

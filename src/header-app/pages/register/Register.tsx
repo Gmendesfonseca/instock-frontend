@@ -1,7 +1,7 @@
 import './register.css';
 import { useNavigate } from 'react-router-dom';
-import bg from '../../../public/bg.png';
-import lock from '../../../public/lock.png';
+import bg from '@/header-app/assets/bg.png';
+import lock from '@/header-app/assets/lock.png';
 
 export default function Register() {
   const navigate = useNavigate();

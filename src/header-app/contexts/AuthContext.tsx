@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { encode, decode } from '../utils/crypto';
-import { IUser } from '../../interfaces/User';
+import { IUser } from '../interfaces/User';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import { api } from '../../services/api';

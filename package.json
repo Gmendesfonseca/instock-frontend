@@ -14,6 +14,10 @@
     "test:mobile": "cypress run --config viewportWidth=410,viewportHeight=860"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.2",
+    "apexcharts": "^3.54.0",
     "axios": "^1.7.7",
     "crypto-js": "^4.2.0",
     "i18next": "^23.14.0",
@@ -22,12 +26,12 @@
     "luxon": "^3.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^3.10.0",
-    "react-spring": "^8.0.27",
     "react-i18next": "^15.0.1",
+    "react-icons": "^3.10.0",
     "react-router-dom": "^6.26.2",
-    "styled-components": "^6.1.13",
-    "uuidv4": "^6.2.13",
+    "react-spring": "^8.0.27",
+    "react-toastify": "^10.0.5",
+    "socket.io-client": "^4.8.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

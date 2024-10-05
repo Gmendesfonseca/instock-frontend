@@ -5,14 +5,13 @@ import { SignInCredentials } from '@/header-app/contexts/AuthContext';
 import * as Yup from 'yup';
 import { useAuth } from '@/header-app/hooks/useAuth';
 import getValidationErrors from '@/header-app/utils/getValidationErrors';
-import { useToast } from '@/header-app/hooks/toast';
-import bg from '../../../public/bg.png';
-import lock from '../../../public/lock.png';
+import bg from '@/header-app/assets/bg.png';
+import lock from '@/header-app/assets/lock.png';
+import { addToast } from '@/header-app/components/Toast/toast';
 
 export default function Login() {
   const query = useQuery();
   const { signIn } = useAuth();
-  const { addToast } = useToast();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
