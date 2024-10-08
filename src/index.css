@@ -5,18 +5,14 @@
 }
 
 :root {
-  --background: linear-gradient(
-    180deg,
-    hsla(198, 100%, 5%, 1) 0%,
-    hsla(190, 100%, 23%, 1) 100%
-  );
+  background-color: #1e1e1e;
 }
 
 html,
 body,
 #root {
   font-family: 'Poppins', sans-serif;
-  color: white;
+  color: #e0e0e0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--background);

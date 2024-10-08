@@ -1,5 +1,5 @@
 .nav {
-  background-color: white;
+  background-color: #2e2e2e;
 }
 
 .nav_list {
@@ -10,7 +10,41 @@
   list-style-type: none;
 }
 
+.menu_list {
+  height: 50px;
+  width: 50px;
+  padding: 8px;
+}
+
 .nav_item {
   width: 100px;
   text-align: center;
+  text-decoration: none;
+}
+
+.nav_link {
+  color: #e0e0e0;
+  text-decoration: none;
+}
+
+.nav_link:hover {
+  text-decoration: underline #2196f3 3px;
+}
+
+@media screen and (max-width: 500px) {
+  .nav_list {
+    display: none;
+  }
+  .menu_list {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .menu_list {
+    display: none;
+  }
+  .nav_list {
+    display: flex;
+  }
 }
