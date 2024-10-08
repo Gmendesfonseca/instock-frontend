@@ -33,6 +33,21 @@ export function createRoutes() {
       permissions: routePermissions.COMPANY_ACCESS,
     },
     {
+      path: '/items',
+      element: <h1>Itens</h1>,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
+      path: '/stock',
+      element: <h1>Estoque</h1>,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
+      path: '/sales',
+      element: <h1>Vendas</h1>,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
       path: '/404',
       element: <div>404</div>,
     },

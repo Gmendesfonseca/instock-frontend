@@ -50,6 +50,8 @@
 .navigate_login {
   color: white;
   width: 300px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .sign_up {
@@ -66,10 +68,6 @@
 .form_register input:focus {
   outline: none;
   font-size: 1.1rem;
-}
-
-.sign_up:hover {
-  box-shadow: 0 0 8px #e9d8a6;
 }
 
 .form_register input:hover {
