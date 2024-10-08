@@ -1,7 +1,13 @@
 import './register.css';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< Updated upstream:src/pages/register/Register.tsx
+import bg from '../../../public/bg.png';
+import lock from '../../../public/lock.png';
+=======
 import bg from '@/header-app/assets/bg.png';
 import lock from '@/header-app/assets/lock.png';
+import BtnSign from '@/header-app/components/signButton/BtnSign';
+>>>>>>> Stashed changes:src/header-app/pages/register/Register.tsx
 
 export default function Register() {
   const navigate = useNavigate();
@@ -44,9 +50,7 @@ export default function Register() {
             Fazer login
           </a>
         </form>
-        <button className='sign_up' onClick={() => navigate('/')}>
-          Registrar
-        </button>
+        <BtnSign title='Registrar-se' onClick={() => navigate('/')} />
       </div>
     </div>
   );

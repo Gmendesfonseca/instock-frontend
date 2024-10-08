@@ -1,6 +1,9 @@
 {
   "translation": {
     "hello": "Hello",
-    "world": "World"
+    "world": "World",
+    "sign": {
+      "create_new_account": "Create new account"
+    }
   }
 }

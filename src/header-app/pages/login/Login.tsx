@@ -8,6 +8,8 @@ import getValidationErrors from '@/header-app/utils/getValidationErrors';
 import bg from '@/header-app/assets/bg.png';
 import lock from '@/header-app/assets/lock.png';
 import { addToast } from '@/header-app/components/Toast/toast';
+import BtnSign from '../../components//signButton/BtnSign';
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
   const query = useQuery();
@@ -92,6 +94,8 @@ export default function Login() {
     [signIn, addToast] // eslint-disable-line
   );
 
+  const { t } = useTranslation();
+
   return (
     <div className='login'>
       <img src={bg} />
@@ -122,9 +126,7 @@ export default function Login() {
           >
             Criar nova conta
           </a>
-          <button data-cy='login_submit' className='sign_in' type='submit'>
-            Sign In
-          </button>
+          <BtnSign title='Login' />
         </form>
       </div>
     </div>
