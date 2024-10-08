@@ -29,7 +29,7 @@ export default function Login() {
     }
 
     return '/home';
-  }, []); // eslint-disable-line
+  }, []);
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,14 +40,12 @@ export default function Login() {
         password: passwordRef.current?.value || '',
       };
 
-      console.log('Form data:', data);
-
       try {
         const schema = Yup.object().shape({
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória'),
+          password: Yup.string().required('Senha obrigatória').min(8),
         });
 
         await schema.validate(data, {
@@ -68,30 +66,19 @@ export default function Login() {
         }
 
         if (err?.response?.status === 500) {
-          return addToast({
-            type: 'error',
-            title: 'Erro na autenticação',
-            description:
-              'Ocorreu um erro ao fazer login, por favor tente novamente.',
-          });
+          return addToast(
+            'Ocorreu um erro ao fazer login, por favor tente novamente.'
+          );
         }
 
         if (err?.response?.status === 401) {
-          return addToast({
-            type: 'error',
-            title: 'Erro na autenticação',
-            description: 'Credenciais inválidas, por favor tente novamente.',
-          });
+          return addToast('Credenciais inválidas, por favor tente novamente.');
         }
 
-        addToast({
-          type: 'error',
-          title: 'Erro na autenticação',
-          description: 'E-mail ou senha incorretos.',
-        });
+        addToast('E-mail ou senha incorretos.');
       }
     },
-    [signIn, addToast] // eslint-disable-line
+    [signIn, addToast]
   );
 
   const { t } = useTranslation();
@@ -124,7 +111,7 @@ export default function Login() {
             data-cy='navigate_register'
             className='navigate_register'
           >
-            Criar nova conta
+            {t('sign.create_new_account')}
           </a>
           <BtnSign title='Login' />
         </form>

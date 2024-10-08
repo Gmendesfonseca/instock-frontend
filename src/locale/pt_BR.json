@@ -3,7 +3,7 @@
     "hello": "Olá",
     "world": "Mundo",
     "sign": {
-      "create_new_account": "Create new account"
+      "create_new_account": "Criar nova conta"
     }
   }
 }
