@@ -23,9 +23,17 @@ export interface SignInCredentials {
   password: string;
 }
 
+export interface RegisterCredentials {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export interface AuthContextData {
   user: IUser;
   signIn(credentials: SignInCredentials): Promise<void>;
+  registration(credentials: RegisterCredentials): Promise<void>;
   signOut(): void;
   updateUser(user: IUser): void;
   refreshToken(): Promise<string | null>;
@@ -128,6 +136,21 @@ export const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
       console.log('Error:', error);
     }
   }, []);
+
+  const registration = useCallback(
+    async ({ username, email, password }: RegisterCredentials) => {
+      try {
+        await api.post(`/users/create`, {
+          username,
+          email,
+          password,
+        });
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    },
+    []
+  );
 
   function signOut() {
     removeAuthCookies();
@@ -238,6 +261,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
       value={{
         user: data.user,
         signIn,
+        registration,
         signOut,
         updateUser,
         refreshToken: doRefreshToken,
