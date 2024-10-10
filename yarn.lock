@@ -2919,6 +2919,11 @@ svg.select.js@^3.0.1:
   dependencies:
     svg.js "^2.6.5"
 
+swapy@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/swapy/-/swapy-0.4.2.tgz#3dc747784aa3db49871f1d5a7f6cc93c26aeae66"
+  integrity sha512-vxs9OjXCfaQRXUxUBZb7KAWSAJeWlOYsG8N6lJBseEaQZ3XfxW6uIvJo/ebyxQ3mdFxNHEWhxPSbfrfCvevh6Q==
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"

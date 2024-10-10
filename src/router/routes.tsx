@@ -4,6 +4,7 @@ import Login from '@/header-app/pages/login/Login';
 import Register from '@/header-app/pages/register/Register';
 import Home from '@/pages/home/Home';
 import Dashboard from '@/pages/dashboard/Dashboard';
+import Items from '@/pages/items/Items';
 
 export type RouteType = {
   path: string;
@@ -34,7 +35,7 @@ export function createRoutes() {
     },
     {
       path: '/items',
-      element: <h1>Itens</h1>,
+      element: <Items />,
       permissions: routePermissions.COMPANY_ACCESS,
     },
     {
