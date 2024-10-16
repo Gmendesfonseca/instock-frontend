@@ -8,7 +8,7 @@ export default function Items() {
     const container = document.querySelector('.container');
     if (container) {
       const swapy = createSwapy(container, {
-        animation: 'dynamic', // or spring or none
+        animation: 'spring', // or spring or none
       });
 
       // You can disable and enable it anytime you want
@@ -16,40 +16,38 @@ export default function Items() {
 
       swapy.onSwap((event) => {
         console.log(event.data.object);
-
-        event.data.object = {
-          foo: 'a',
-          bar: 'b',
-          baz: 'c',
-        };
+        console.log(event.data.array);
+        console.log(event.data.map);
       });
-
-      return () => {
-        swapy.destroy();
-      };
     }
   }, []);
+
+  const items = Array.from({ length: 50 }, (_, index) => index);
 
   return (
     <DefaultMainLayout>
       <div className='container'>
-        <div className='section-1' data-swapy-slot='foo'>
-          <div className='content-a' data-swapy-item='a'>
-            A
+        {items.map((item) => (
+          <div className='section-1' data-swapy-slot={item}>
+            <div key={item} className='item' data-swapy-item={item}>
+              {/* <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='size-6'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z'
+                />
+              </svg> */}
+              {item}
+            </div>
           </div>
-        </div>
-
-        <div className='section-2' data-swapy-slot='bar'>
-          <div className='content-b' data-swapy-item='b'>
-            B
-          </div>
-        </div>
-
-        <div className='section-3' data-swapy-slot='baz'>
-          <div className='content-c' data-swapy-item='c'>
-            C
-          </div>
-        </div>
+        ))}
       </div>
     </DefaultMainLayout>
   );
