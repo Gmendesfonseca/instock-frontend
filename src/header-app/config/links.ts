@@ -5,7 +5,7 @@ export type AwsUrl = {
   region: string;
 };
 
-export type Modulelinks = {
+export type ModuleLinks = {
   api: string;
   web: string;
   notification: string;
@@ -15,7 +15,7 @@ export type Modulelinks = {
   mode: string;
 };
 
-export const links: Modulelinks = {
+export const links: ModuleLinks = {
   api: import.meta.env.VITE_APP_API_URL,
   web: import.meta.env.VITE_APP_WEB_URL,
   notification: import.meta.env.VITE_APP_API_URL_NOTIFICATIONS,
