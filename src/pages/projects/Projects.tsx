@@ -42,21 +42,15 @@ export default function Projects() {
           <div className='projects_list'>
             {projects.map((project) => (
               <div key={project.id} className='project'>
-                <div className='project_header'>
-                  <div className='project_name'>{project.name}</div>
-                  <div
-                    className={`project_status ${getStatusClass(
-                      project.status
-                    )}`}
-                  ></div>
-                </div>
-                <div className='project_body'>
-                  <div className='project_end_date'>DD/MM/AAAA</div>
-                  <div className='project_progress'>14/50</div>
-                  <div className='project_description'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec nec odio vitae
-                  </div>
+                <div
+                  className={`project_status ${getStatusClass(project.status)}`}
+                ></div>
+                <div className='project_name'>{project.name}</div>
+                <div className='project_progress'>14/50</div>
+                <div className='project_end_date'>DD/MM/AAAA</div>
+                <div className='project_description'>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                  nec odio vitae
                 </div>
               </div>
             ))}
