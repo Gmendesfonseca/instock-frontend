@@ -134,6 +134,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
       });
     } catch (error) {
       console.log('Error:', error);
+      throw error;
     }
   }, []);
 
