@@ -5,6 +5,7 @@ import Register from '@/header-app/pages/register/Register';
 import Home from '@/pages/home/Home';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import Items from '@/pages/items/Items';
+import Projects from '@/pages/projects/Projects';
 
 export type RouteType = {
   path: string;
@@ -46,6 +47,11 @@ export function createRoutes() {
     {
       path: '/sales',
       element: <h1>Vendas</h1>,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
+      path: '/projects',
+      element: <Projects />,
       permissions: routePermissions.COMPANY_ACCESS,
     },
     {
