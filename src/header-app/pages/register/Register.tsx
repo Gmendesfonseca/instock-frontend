@@ -2,14 +2,15 @@ import './register.css';
 import bg from '@/header-app/assets/bg.png';
 import lock from '@/header-app/assets/lock.png';
 import BtnSign from '@/header-app/components/signButton/BtnSign';
-import { addToast } from '@/header-app/components/Toast/toast';
 import { RegisterCredentials } from '@/header-app/contexts/AuthContext';
+import { useToast } from '@/header-app/hooks/useToast';
 import { useAuth } from '@/header-app/hooks/useAuth';
 import getValidationErrors from '@/header-app/utils/getValidationErrors';
 import { useCallback, useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 export default function Register() {
+  const { addToast } = useToast();
   const { registration } = useAuth();
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -61,16 +62,24 @@ export default function Register() {
         }
 
         if (err?.response?.status === 500) {
-          return addToast(
-            'Ocorreu um erro ao fazer login, por favor tente novamente.'
-          );
+          return addToast({
+            type: 'error',
+            description:
+              'Ocorreu um erro ao fazer login, por favor tente novamente.',
+          });
         }
 
         if (err?.response?.status === 401) {
-          return addToast('Credenciais inválidas, por favor tente novamente.');
+          return addToast({
+            type: 'error',
+            description: 'Credenciais inválidas, por favor tente novamente.',
+          });
         }
 
-        addToast('E-mail ou senha incorretos.');
+        addToast({
+          type: 'error',
+          description: 'E-mail ou senha incorretos.',
+        });
       }
     },
     [registration, addToast]
