@@ -9,9 +9,9 @@ export default function Filter() {
       <div className='filter_sort'>
         <select>
           <option value=''>Filtrar por</option>
-          <option value=''>Nome</option>
-          <option value=''>Status</option>
-          <option value=''>Data</option>
+          <option value='name'>Nome</option>
+          <option value='status'>Status</option>
+          <option value='date'>Data</option>
         </select>
       </div>
     </div>
