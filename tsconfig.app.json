@@ -28,6 +28,5 @@
     "**/*.ts",
     "**/*.tsx",
     "vite.config.ts",
-    "src/pages/projects/projects.css"
   ]
 }
