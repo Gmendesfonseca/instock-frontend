@@ -13,6 +13,7 @@ import { api } from '../../services/api';
 import { AxiosResponse } from 'axios';
 import { SetState } from '../interfaces/SetState';
 import { MeProps } from '../interfaces/Me';
+import Cookies from 'js-cookie';
 
 export interface ProfileContextProps {
   me: MeProps;
@@ -33,8 +34,19 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   }, []);
 
   useEffect(() => {
+    if (window.location.pathname === '/') return;
     getMe().then((data) => setMe(data));
   }, [getMe]);
+
+  useEffect(() => {
+    if (window.location.pathname === '/') return;
+    const authToken = Cookies.get('authToken');
+    const expiresIn = Cookies.get('expiresIn');
+    const user = Cookies.get('user');
+    if (!authToken || !expiresIn || !user) {
+      window.location.href = '/';
+    }
+  }, []);
 
   return (
     /* eslint-disable */

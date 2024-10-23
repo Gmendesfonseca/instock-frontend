@@ -4,6 +4,7 @@ import Login from '@/header-app/pages/login/Login';
 import Register from '@/header-app/pages/register/Register';
 import Home from '@/pages/home/Home';
 import Dashboard from '@/pages/dashboard/Dashboard';
+import Items from '@/pages/items/Items';
 
 export type RouteType = {
   path: string;
@@ -18,6 +19,8 @@ export function createRoutes() {
     {
       path: '/',
       element: <Login />,
+      permissions:
+        routePermissions.COMPANY_ACCESS || routePermissions.PERSON_ACCESS,
     },
     {
       path: '/register',
@@ -30,6 +33,21 @@ export function createRoutes() {
     {
       path: '/dashboard',
       element: <Dashboard />,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
+      path: '/items',
+      element: <Items />,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
+      path: '/stock',
+      element: <h1>Estoque</h1>,
+      permissions: routePermissions.COMPANY_ACCESS,
+    },
+    {
+      path: '/sales',
+      element: <h1>Vendas</h1>,
       permissions: routePermissions.COMPANY_ACCESS,
     },
     {

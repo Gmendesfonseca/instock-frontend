@@ -1,0 +1,16 @@
+.container {
+  display: grid;
+  background-color: #1a1a1a;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  margin: 16px;
+  gap: 16px;
+}
+
+.item {
+  /* background-color: aliceblue; */
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
