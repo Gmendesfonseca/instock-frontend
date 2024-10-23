@@ -19,13 +19,13 @@
   height: calc(100vh - 184.5px);
   flex: 1;
   padding: 24px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .projects_list {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 250px));
   gap: 24px;
   width: auto;
 }
@@ -36,8 +36,8 @@
   flex-wrap: wrap;
   background-color: #fff;
   color: #000;
-  height: 300px;
-  width: 300x;
+  height: 250px;
+  width: 350px;
   border-radius: 8px;
 }
 
@@ -76,16 +76,4 @@
   border-radius: 8px 8px 0 0;
   color: white;
   font-weight: bold;
-}
-
-.project_status_green {
-  background-color: #09ff00;
-}
-
-.project_status_orange {
-  background-color: orange;
-}
-
-.project_status_blue {
-  background-color: #00c8ec;
 }

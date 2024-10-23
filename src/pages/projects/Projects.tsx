@@ -5,7 +5,11 @@ import './projects.css';
 interface Project {
   id: number;
   name: string;
-  status: string;
+  status: 1 | 2 | 3;
+  date: string;
+  progress: number;
+  amount: number;
+  description: string;
 }
 
 export default function Projects() {
@@ -18,17 +22,10 @@ export default function Projects() {
       .catch((error) => console.error('Error fetching projects:', error));
   }, []);
 
-  const getStatusClass = (status: string) => {
-    switch (status) {
-      case '1':
-        return 'project_status_green';
-      case '2':
-        return 'project_status_orange';
-      case '3':
-        return 'project_status_blue';
-      default:
-        return '';
-    }
+  const colors = {
+    1: '#5786b8',
+    2: '#6fbf8b',
+    3: '#f7c873',
   };
 
   return (
@@ -43,15 +40,15 @@ export default function Projects() {
             {projects.map((project) => (
               <div key={project.id} className='project'>
                 <div
-                  className={`project_status ${getStatusClass(project.status)}`}
+                  className='project_status'
+                  style={{ backgroundColor: colors[project.status] }}
                 ></div>
                 <div className='project_name'>{project.name}</div>
-                <div className='project_progress'>14/50</div>
-                <div className='project_end_date'>DD/MM/AAAA</div>
-                <div className='project_description'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  nec odio vitae
+                <div className='project_progress'>
+                  {project.progress}/{project.amount}
                 </div>
+                <div className='project_end_date'>{project.date}</div>
+                <div className='project_description'>{project.description}</div>
               </div>
             ))}
           </div>
