@@ -1,0 +1,104 @@
+.projects {
+  height: calc(100vh - 184.5px);
+  display: flex;
+  gap: 32px;
+  margin-top: 64px;
+  margin-left: 48px;
+  margin-right: 48px;
+}
+
+.projects_sidebar {
+  background-color: #2e2e2e;
+  height: calc(100vh - 184.5px);
+  width: 300px;
+  padding: 24px;
+}
+
+.projects_content {
+  background-color: #2e2e2e;
+  height: calc(100vh - 184.5px);
+  min-width: 350px;
+  flex: 1;
+  padding: 24px;
+  overflow: auto;
+}
+
+.projects_list {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 250px));
+  gap: 24px;
+  width: auto;
+}
+
+.project {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #f6f4f6;
+  color: #000;
+  height: 250px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px #f6f4f6;
+}
+
+.projects_title {
+  margin-bottom: 32px;
+}
+
+.project_name {
+  height: 30px;
+  width: 50%;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.project_progress {
+  height: 30px;
+  width: 51%;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.project_end_date {
+  width: 52%;
+  height: 30px;
+  text-align: center;
+}
+
+/* .project_description {
+  height: 50%;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  text-align: center;
+} */
+
+.project_view_btn {
+  height: 40px;
+  width: 51%;
+  text-align: center;
+  background-color: transparent;
+  /* color: white; */
+  border-radius: 8px;
+  border: 1px solid #2e2e2e;
+  font-weight: 500;
+  /* box-shadow: 4px 4px 16px #2e2e2e; */
+}
+
+.project_status {
+  height: 20px;
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  color: white;
+  font-weight: bold;
+}
+
+.project_view_btn:hover {
+  background-color: #2e2e2e;
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 4px 8px #2e2e2e;
+}
