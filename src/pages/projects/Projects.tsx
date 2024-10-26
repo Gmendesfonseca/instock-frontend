@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
-import { ProjectItem } from '@/services/projects/types';
-// import { getProjectsByCompany } from '@/services/projects/requests';
+import {
+  ProjectItem,
+  //getProjectsByCompany,
+} from '@/services/projects/index';
 // import { useAuth } from '@/header-app/hooks/useAuth';
 
 export default function Projects() {
