@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
-
-interface Project {
-  id: number;
-  name: string;
-  status: 1 | 2 | 3;
-  date: string;
-  progress: number;
-  amount: number;
-  description: string;
-}
+import {
+  ProjectItem,
+  //getProjectsByCompany,
+} from '@/services/projects/index';
+// import { useAuth } from '@/header-app/hooks/useAuth';
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  // const { user } = useAuth();
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
 
   useEffect(() => {
     fetch('/src/assets/projects.json')
       .then((response) => response.json())
       .then((data) => setProjects(data))
       .catch((error) => console.error('Error fetching projects:', error));
+    // getProjectsByCompany(user.id).then((data) => setProjects(data));
   }, []);
 
   const colors = {
