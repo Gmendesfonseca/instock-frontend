@@ -1,6 +1,11 @@
 import api from '../api';
 import { Tag } from './types';
 
+export async function getTag(rfid: string): Promise<Tag> {
+  const response = await api.get(`/tags/${rfid}`);
+  return response.data;
+}
+
 export async function getTagsByCompany(company_id: string): Promise<Tag[]> {
   const response = await api.get(`/tags/companies/${company_id}`);
   return response.data;
