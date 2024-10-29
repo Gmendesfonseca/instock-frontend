@@ -1,6 +1,18 @@
 .filter {
   display: flex;
   justify-content: flex-end;
-  height: 100px;
-  width: 100%;
+  align-items: center;
+  height: min-content;
+  min-width: 350px;
+  margin: 64px;
+}
+
+.filter_input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #000;
+}
+
+.filter_input:focus {
+  outline: none;
 }

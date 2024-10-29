@@ -15,6 +15,8 @@
 }
 
 .projects_content {
+  display: flex;
+  flex-direction: column;
   background-color: #2e2e2e;
   height: calc(100vh - 184.5px);
   min-width: 350px;
@@ -40,52 +42,41 @@
   height: 250px;
   width: 300px;
   border-radius: 8px;
-  box-shadow: 0px 1px 2px #f6f4f6;
 }
 
 .projects_title {
   margin-bottom: 32px;
+  width: 50%;
 }
 
 .project_name {
   height: 30px;
-  width: 50%;
+  width: 100%;
   text-align: center;
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .project_progress {
   height: 30px;
-  width: 51%;
+  width: 100%;
   text-align: center;
   font-size: 1.1rem;
 }
 
 .project_end_date {
-  width: 52%;
+  width: 100%;
   height: 30px;
   text-align: center;
 }
 
-/* .project_description {
-  height: 50%;
-  width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  text-align: center;
-} */
-
 .project_view_btn {
   height: 40px;
-  width: 51%;
+  width: 20%;
   text-align: center;
   background-color: transparent;
-  /* color: white; */
   border-radius: 8px;
-  border: 1px solid #2e2e2e;
   font-weight: 500;
-  /* box-shadow: 4px 4px 16px #2e2e2e; */
 }
 
 .project_status {
@@ -97,8 +88,63 @@
 }
 
 .project_view_btn:hover {
-  background-color: #2e2e2e;
   color: white;
   cursor: pointer;
-  box-shadow: 2px 4px 8px #2e2e2e;
+}
+
+@media screen and (min-width: 900px) {
+  .project {
+    height: 200px;
+    width: 450px;
+  }
+
+  .project_progress {
+    width: 50%;
+  }
+
+  .project_end_date {
+    width: 50%;
+  }
+
+  .projects_list {
+    grid-template-columns: repeat(auto-fill, minmax(450px, 250px));
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_content {
+  background-color: #fefefe;
+  color: #000;
+  padding: 20px;
+  border: 1px solid #fff;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

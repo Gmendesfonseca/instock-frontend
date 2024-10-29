@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
-
-interface Project {
-  id: number;
-  name: string;
-  status: 1 | 2 | 3;
-  date: string;
-  progress: number;
-  amount: number;
-  description: string;
-}
+import { Project } from '../../header-app/interfaces/Project';
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [colors, setColors] = useState({
+    1: '#6fbf8b',
+    2: '#5786b8',
+    3: '#f7c873',
+  });
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     fetch('/src/assets/projects.json')
@@ -23,10 +21,19 @@ export default function Projects() {
       .catch((error) => console.error('Error fetching projects:', error));
   }, []);
 
-  const colors = {
-    1: '#6fbf8b',
-    2: '#5786b8',
-    3: '#f7c873',
+  const filteredProjects = useMemo(() => {
+    const lowerBusca = search.toLowerCase();
+    return projects.filter((project) =>
+      project.name.toLowerCase().includes(lowerBusca)
+    );
+  }, [projects, search]);
+
+  const openModal = (project: Project) => {
+    setSelectedProject(project);
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
   };
 
   return (
@@ -37,9 +44,9 @@ export default function Projects() {
         </section>
         <section className='projects_content'>
           <h1 className='projects_title'>Projetos</h1>
-          <Filter />
+          <Filter search={search} setSearch={setSearch} />
           <div className='projects_list'>
-            {projects.map((project) => (
+            {filteredProjects.map((project) => (
               <div key={project.id} className='project'>
                 <div
                   className='project_status'
@@ -54,13 +61,50 @@ export default function Projects() {
                   <span style={{ fontWeight: 500 }}>Prazo: </span>
                   {project.date}
                 </div>
-                {/* <div className='project_description'>{project.description}</div> */}
-                <button className='project_view_btn'>Abrir</button>
+                <button
+                  className='project_view_btn'
+                  style={{
+                    border: `1px solid ${colors[project.status]}`,
+                    transition: 'background-color 0.3s, border-color 0.3s',
+                  }}
+                  onClick={() => openModal(project)}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLButtonElement).style.backgroundColor =
+                      colors[project.status];
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLButtonElement).style.backgroundColor =
+                      '#f6f4f6';
+                  }}
+                >
+                  Abrir
+                </button>
               </div>
             ))}
           </div>
         </section>
       </div>
+      {selectedProject && (
+        <div className='modal'>
+          <div className='modal_content'>
+            <span className='close' onClick={closeModal}>
+              &times;
+            </span>
+            <h2>{selectedProject.name}</h2>
+            <p>{selectedProject.description}</p>
+            <p>
+              <strong>Progresso:</strong> {selectedProject.progress}/
+              {selectedProject.amount}
+            </p>
+            <p>
+              <strong>Prazo:</strong> {selectedProject.date}
+            </p>
+            <p>
+              <strong>Status:</strong> {selectedProject.status}
+            </p>
+          </div>
+        </div>
+      )}
     </DefaultMainLayout>
   );
 }
