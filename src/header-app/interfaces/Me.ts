@@ -6,7 +6,7 @@ import {
   ShowLocation,
   ShowProjects,
   ViewListFriends,
-} from '../../../../incheck-frontend/src/interfaces/ProfileConfig';
+} from '@/header-app/interfaces/ProfileConfig';
 
 export interface MeCompany {
   id: string;

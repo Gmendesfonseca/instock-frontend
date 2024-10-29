@@ -20,6 +20,8 @@ export function createRoutes() {
     {
       path: '/',
       element: <Login />,
+      permissions:
+        routePermissions.COMPANY_ACCESS || routePermissions.PERSON_ACCESS,
     },
     {
       path: '/register',

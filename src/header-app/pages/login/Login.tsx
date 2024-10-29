@@ -7,13 +7,15 @@ import { useAuth } from '@/header-app/hooks/useAuth';
 import getValidationErrors from '@/header-app/utils/getValidationErrors';
 import bg from '@/header-app/assets/bg.png';
 import lock from '@/header-app/assets/lock.png';
-import { addToast } from '@/header-app/components/Toast/toast';
 import BtnSign from '../../components//signButton/BtnSign';
 import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
+import { useToast } from '@/header-app/hooks/useToast';
 
 export default function Login() {
   const query = useQuery();
   const { signIn } = useAuth();
+  const { addToast } = useToast();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -45,7 +47,8 @@ export default function Login() {
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória').min(8),
+          password: Yup.string().required('Senha obrigatória'),
+          // .min(8, 'A senha deve ter no mínimo 8 caracteres'),
         });
 
         await schema.validate(data, {
@@ -65,17 +68,27 @@ export default function Login() {
           return;
         }
 
-        if (err?.response?.status === 500) {
-          return addToast(
-            'Ocorreu um erro ao fazer login, por favor tente novamente.'
-          );
+        if (err instanceof AxiosError && err.status === 500) {
+          addToast({
+            type: 'error',
+            description:
+              'Ocorreu um erro ao fazer login, por favor tente novamente.',
+          });
+          return;
         }
 
-        if (err?.response?.status === 401) {
-          return addToast('Credenciais inválidas, por favor tente novamente.');
+        if (err instanceof AxiosError && err.status === 401) {
+          addToast({
+            type: 'error',
+            description: 'Credenciais inválidas, por favor tente novamente.',
+          });
+          return;
         }
 
-        addToast('E-mail ou senha incorretos.');
+        addToast({
+          type: 'error',
+          description: 'E-mail ou senha incorretos.',
+        });
       }
     },
     [signIn, addToast]
