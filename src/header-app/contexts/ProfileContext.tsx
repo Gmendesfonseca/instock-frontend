@@ -38,15 +38,15 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
     getMe().then((data) => setMe(data));
   }, [getMe]);
 
-  useEffect(() => {
-    if (window.location.pathname === '/') return;
-    const authToken = Cookies.get('authToken');
-    const expiresIn = Cookies.get('expiresIn');
-    const user = Cookies.get('user');
-    if (!authToken || !expiresIn || !user) {
-      window.location.href = '/';
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.location.pathname === '/') return;
+  //   const authToken = Cookies.get('authToken');
+  //   const expiresIn = Cookies.get('expiresIn');
+  //   const user = Cookies.get('user');
+  //   if (!authToken || !expiresIn || !user) {
+  //     window.location.href = '/';
+  //   }
+  // }, []);
 
   return (
     /* eslint-disable */

@@ -1,0 +1,13 @@
+.new_projects_btn {
+  background-color: #2196f3;
+  color: white;
+  border: 1px solid #2196f3;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.new_projects_btn:hover {
+  cursor: pointer;
+  background-color: #2195f3c0;
+  border: 1px solid #2195f3c0;
+}

@@ -1,6 +1,7 @@
 .projects {
   height: calc(100vh - 184.5px);
   display: flex;
+  justify-content: center;
   gap: 32px;
   margin-top: 64px;
   margin-left: 48px;
@@ -23,6 +24,13 @@
   flex: 1;
   padding: 24px;
   overflow: auto;
+}
+
+.projects_header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 32px;
 }
 
 .projects_list {

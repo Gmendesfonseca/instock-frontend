@@ -3,6 +3,7 @@ import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
 import { Project } from '../../header-app/interfaces/Project';
+import NewProjects from '@/components/new_projects/NewProjects';
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -44,7 +45,10 @@ export default function Projects() {
         </section>
         <section className='projects_content'>
           <h1 className='projects_title'>Projetos</h1>
-          <Filter search={search} setSearch={setSearch} />
+          <div className='projects_header'>
+            <Filter search={search} setSearch={setSearch} />
+            <NewProjects />
+          </div>
           <div className='projects_list'>
             {filteredProjects.map((project) => (
               <div key={project.id} className='project'>
