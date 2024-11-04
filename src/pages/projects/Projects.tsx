@@ -52,37 +52,41 @@ export default function Projects() {
           <div className='projects_list'>
             {filteredProjects.map((project) => (
               <div key={project.id} className='project'>
-                <div
-                  className='project_status'
-                  style={{ backgroundColor: colors[project.status] }}
-                ></div>
-                <div className='project_name'>{project.name}</div>
-                <div className='project_progress'>
-                  <span style={{ fontWeight: 500 }}>Progresso: </span>
-                  {project.progress}/{project.amount}
+                <div className='status'>
+                  <div
+                    className='project_status'
+                    style={{ backgroundColor: colors[project.status] }}
+                  ></div>
                 </div>
-                <div className='project_end_date'>
-                  <span style={{ fontWeight: 500 }}>Prazo: </span>
-                  {project.date}
+                <div className='project_content'>
+                  <div className='project_name'>{project.name}</div>
+                  <div className='project_progress'>
+                    <span style={{ fontWeight: 500 }}>Progresso: </span>
+                    {project.progress}/{project.amount}
+                  </div>
+                  <div className='project_end_date'>
+                    <span style={{ fontWeight: 500 }}>Prazo: </span>
+                    {project.date}
+                  </div>
+                  <button
+                    className='project_view_btn'
+                    style={{
+                      border: `1px solid ${colors[project.status]}`,
+                      transition: 'background-color 0.3s, border-color 0.3s',
+                    }}
+                    onClick={() => openModal(project)}
+                    onMouseEnter={(e) => {
+                      (e.target as HTMLButtonElement).style.backgroundColor =
+                        colors[project.status];
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.target as HTMLButtonElement).style.backgroundColor =
+                        '#f6f4f6';
+                    }}
+                  >
+                    Abrir
+                  </button>
                 </div>
-                <button
-                  className='project_view_btn'
-                  style={{
-                    border: `1px solid ${colors[project.status]}`,
-                    transition: 'background-color 0.3s, border-color 0.3s',
-                  }}
-                  onClick={() => openModal(project)}
-                  onMouseEnter={(e) => {
-                    (e.target as HTMLButtonElement).style.backgroundColor =
-                      colors[project.status];
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.target as HTMLButtonElement).style.backgroundColor =
-                      '#f6f4f6';
-                  }}
-                >
-                  Abrir
-                </button>
               </div>
             ))}
           </div>

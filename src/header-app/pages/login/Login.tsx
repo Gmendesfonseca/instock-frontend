@@ -7,7 +7,7 @@ import { useAuth } from '@/header-app/hooks/useAuth';
 import getValidationErrors from '@/header-app/utils/getValidationErrors';
 import bg from '@/header-app/assets/bg.png';
 import lock from '@/header-app/assets/lock.png';
-import BtnSign from '../../components//signButton/BtnSign';
+import BtnSign from '../../components/signButton/BtnSign';
 import { useTranslation } from 'react-i18next';
 import { AxiosError } from 'axios';
 import { useToast } from '@/header-app/hooks/useToast';

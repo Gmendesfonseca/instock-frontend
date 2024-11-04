@@ -30,7 +30,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 32px;
+  margin: 48px;
 }
 
 .projects_list {
@@ -43,13 +43,21 @@
 
 .project {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   background-color: #f6f4f6;
   color: #000;
   height: 250px;
   width: 300px;
   border-radius: 8px;
+}
+
+.project_content {
+  display: flex;
+  height: 100%;
+  width: 50%;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .projects_title {
@@ -58,8 +66,8 @@
 }
 
 .project_name {
-  height: 30px;
-  width: 100%;
+  height: auto;
+  width: 25%;
   text-align: center;
   font-size: 1.4rem;
   font-weight: 600;
@@ -67,19 +75,19 @@
 
 .project_progress {
   height: 30px;
-  width: 100%;
+  width: 25%;
   text-align: center;
   font-size: 1.1rem;
 }
 
 .project_end_date {
-  width: 100%;
+  width: 25%;
   height: 30px;
   text-align: center;
 }
 
 .project_view_btn {
-  height: 40px;
+  padding: 8px;
   width: 20%;
   text-align: center;
   background-color: transparent;
@@ -87,11 +95,15 @@
   font-weight: 500;
 }
 
+.status {
+  width: 100%;
+}
+
 .project_status {
   height: 20px;
   width: 100%;
+  align-self: flex-start;
   border-radius: 8px 8px 0 0;
-  color: white;
   font-weight: bold;
 }
 
@@ -102,20 +114,44 @@
 
 @media screen and (min-width: 900px) {
   .project {
-    height: 200px;
-    width: 450px;
+    flex-direction: column;
+    align-items: center;
+    height: 250px;
+    width: 1350px;
+  }
+
+  .project_content {
+    display: flex;
+    height: 100%;
+    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .project_status {
+    align-self: flex-start;
+  }
+
+  .status {
+    width: 100%;
+  }
+
+  .project_name {
+    font-size: 2rem;
+    height: auto;
+    width: 25%;
   }
 
   .project_progress {
-    width: 50%;
+    width: 25%;
   }
 
   .project_end_date {
-    width: 50%;
+    width: 25%;
   }
 
   .projects_list {
-    grid-template-columns: repeat(auto-fill, minmax(450px, 250px));
+    grid-template-columns: repeat(auto-fill, minmax(1350px, 250px));
   }
 }
 
