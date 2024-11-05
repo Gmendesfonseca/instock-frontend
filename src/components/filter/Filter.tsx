@@ -1,19 +1,21 @@
 import './filter.css';
 
-export default function Filter() {
+interface FilterProps {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Filter({ search, setSearch }: FilterProps) {
   return (
     <div className='filter'>
-      <div className='filter_search'>
-        <input type='text' placeholder='Pesquisar' />
-      </div>
-      <div className='filter_sort'>
-        <select>
-          <option value=''>Filtrar por</option>
-          <option value='name'>Nome</option>
-          <option value='status'>Status</option>
-          <option value='date'>Data</option>
-        </select>
-      </div>
+      <input
+        className='filter_input'
+        name='search'
+        type='text'
+        placeholder='Pesquisar projeto'
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+      />
     </div>
   );
 }

@@ -1,16 +1,26 @@
 .container {
-  display: grid;
-  background-color: #1a1a1a;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: #2e2e2e;
+  margin-top: 64px;
+  margin-left: 48px;
+  margin-right: 48px;
   gap: 16px;
 }
 
 .item {
-  /* background-color: aliceblue; */
-  height: 100px;
-  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+  padding: 16px;
+  background-color: #3e3e3e;
+  border-radius: 8px;
+}
+
+.items_info {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
 }
