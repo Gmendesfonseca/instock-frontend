@@ -141,10 +141,11 @@ export const AuthProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   const registration = useCallback(
     async ({ username, email, password }: RegisterCredentials) => {
       try {
-        await api.post(`/users/create`, {
+        await api.post(`/users/`, {
           username,
           email,
           password,
+          type: 'COMPANY',
         });
       } catch (error) {
         console.log('Error:', error);

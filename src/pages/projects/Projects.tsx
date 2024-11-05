@@ -4,6 +4,7 @@ import './projects.css';
 import Filter from '@/components/filter/Filter';
 import NewProjects from '@/components/new_projects/NewProjects';
 import { ProjectItem } from '@/services/projects';
+import ProjectItems from './ProjectItems';
 
 export default function Projects() {
   const [projects, setProjects] = useState<ProjectItem[]>([]);
@@ -44,6 +45,7 @@ export default function Projects() {
       <div className='projects'>
         <section className='projects_sidebar'>
           <h1>Itens</h1>
+          <ProjectItems />
         </section>
         <section className='projects_content'>
           <h1 className='projects_title'>Projetos</h1>
@@ -69,6 +71,10 @@ export default function Projects() {
                   <div className='project_end_date'>
                     <span style={{ fontWeight: 500 }}>Prazo: </span>
                     {project.date}
+                  </div>
+                  <div className='project_unit_value'>
+                    <span style={{ fontWeight: 500 }}>Valor(unid): </span>
+                    {project.unit_value}
                   </div>
                   <button
                     className='project_view_btn'
@@ -101,17 +107,20 @@ export default function Projects() {
               &times;
             </span>
             <h2>{selectedProject.name}</h2>
-            <p>{selectedProject.description}</p>
-            <p>
+            <span>{selectedProject.description}</span>
+            <span>
               <strong>Progresso:</strong> {selectedProject.progress}/
               {selectedProject.amount}
-            </p>
-            <p>
+            </span>
+            <span>
               <strong>Prazo:</strong> {selectedProject.date}
-            </p>
-            <p>
+            </span>
+            <span>
               <strong>Status:</strong> {selectedProject.status}
-            </p>
+            </span>
+            <span>
+              <strong>Valor (unid):</strong> {selectedProject.unit_value}
+            </span>
           </div>
         </div>
       )}

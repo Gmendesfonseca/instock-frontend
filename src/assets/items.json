@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "name": "Item 1",
+    "price": 10.99,
+    "quantity": 100,
+    "unit": "kg"
+  },
+  {
+    "id": 2,
+    "name": "Item 2",
+    "price": 15.99,
+    "quantity": 200,
+    "unit": "kg"
+  },
+  {
+    "id": 3,
+    "name": "Item 3",
+    "price": 8.99,
+    "quantity": 150,
+    "unit": "kg"
+  },
+  {
+    "id": 4,
+    "name": "Item 4",
+    "price": 12.99,
+    "quantity": 120,
+    "unit": "kg"
+  },
+  {
+    "id": 5,
+    "name": "Item 5",
+    "price": 9.99,
+    "quantity": 130,
+    "unit": "kg"
+  },
+  {
+    "id": 6,
+    "name": "Item 6",
+    "price": 14.99,
+    "quantity": 140,
+    "unit": "kg"
+  },
+  {
+    "id": 7,
+    "name": "Item 7",
+    "price": 11.99,
+    "quantity": 110,
+    "unit": "kg"
+  },
+  {
+    "id": 8,
+    "name": "Item 8",
+    "price": 13.99,
+    "quantity": 160,
+    "unit": "kg"
+  },
+  {
+    "id": 9,
+    "name": "Item 9",
+    "price": 10.49,
+    "quantity": 170,
+    "unit": "kg"
+  },
+  {
+    "id": 10,
+    "name": "Item 10",
+    "price": 16.99,
+    "quantity": 180,
+    "unit": "kg"
+  },
+  {
+    "id": 11,
+    "name": "Item 11",
+    "price": 17.99,
+    "quantity": 190,
+    "unit": "kg"
+  },
+  {
+    "id": 12,
+    "name": "Item 12",
+    "price": 18.99,
+    "quantity": 200,
+    "unit": "kg"
+  },
+  {
+    "id": 13,
+    "name": "Item 13",
+    "price": 19.99,
+    "quantity": 210,
+    "unit": "kg"
+  },
+  {
+    "id": 14,
+    "name": "Item 14",
+    "price": 20.99,
+    "quantity": 220,
+    "unit": "kg"
+  },
+  {
+    "id": 15,
+    "name": "Item 15",
+    "price": 21.99,
+    "quantity": 230,
+    "unit": "kg"
+  },
+  {
+    "id": 16,
+    "name": "Item 16",
+    "price": 22.99,
+    "quantity": 240,
+    "unit": "kg"
+  },
+  {
+    "id": 17,
+    "name": "Item 17",
+    "price": 23.99,
+    "quantity": 250,
+    "unit": "kg"
+  },
+  {
+    "id": 18,
+    "name": "Item 18",
+    "price": 24.99,
+    "quantity": 260,
+    "unit": "kg"
+  },
+  {
+    "id": 19,
+    "name": "Item 19",
+    "price": 25.99,
+    "quantity": 270,
+    "unit": "kg"
+  },
+  {
+    "id": 20,
+    "name": "Item 20",
+    "price": 26.99,
+    "quantity": 280,
+    "unit": "kg"
+  }
+]
