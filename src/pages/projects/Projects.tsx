@@ -2,17 +2,19 @@ import { useState, useEffect, useMemo } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
-import { Project } from '../../header-app/interfaces/Project';
 import NewProjects from '@/components/new_projects/NewProjects';
+import { ProjectItem } from '@/services/projects';
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [colors, setColors] = useState({
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
+  const [colors] = useState({
     1: '#6fbf8b',
     2: '#5786b8',
     3: '#f7c873',
   });
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
+    null
+  );
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function Projects() {
     );
   }, [projects, search]);
 
-  const openModal = (project: Project) => {
+  const openModal = (project: ProjectItem) => {
     setSelectedProject(project);
   };
 

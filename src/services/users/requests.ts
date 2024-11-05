@@ -15,7 +15,7 @@ export async function updateUserPassword({
   id,
   password,
 }: UpdateUserPassword): Promise<User> {
-  const response = await api.put(`/users/${id}/password`, { password });
+  const response = await api.patch(`/users/${id}/password`, { password });
   return response.data;
 }
 
