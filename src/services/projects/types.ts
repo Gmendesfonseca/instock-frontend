@@ -1,7 +1,7 @@
 export type ProjectItem = {
   id: number;
   name: string;
-  status: 1 | 2 | 3;
+  status: 'ACTIVE' | 'CANCELED' | 'FINISHED';
   date: string;
   progress: number;
   amount: number;
@@ -10,7 +10,7 @@ export type ProjectItem = {
 
 export type NewProject = {
   name: string;
-  status: 1 | 2 | 3;
+  status: 'ACTIVE' | 'CANCELED' | 'FINISHED';
   date: string;
   progress: number;
   amount: number;

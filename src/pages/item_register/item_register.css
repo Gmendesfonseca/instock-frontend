@@ -1,0 +1,37 @@
+.item_register {
+  height: calc(100vh - 184.5px);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2e2e2e;
+  width: 600px;
+  height: 550px;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+form div {
+  width: 80%;
+}
+
+.form input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.form button {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 32px;
+}

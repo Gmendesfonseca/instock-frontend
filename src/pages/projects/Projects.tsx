@@ -1,17 +1,20 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, SetStateAction } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
 import NewProjects from '@/components/new_projects/NewProjects';
 import { ProjectItem } from '@/services/projects';
 import ProjectItems from './ProjectItems';
+import { getProject } from '@/services/projects/requests';
+
+const projectId = '75cca565-6a02-4701-a9c3-8f9f72e1f796';
 
 export default function Projects() {
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [colors] = useState({
-    1: '#6fbf8b',
-    2: '#5786b8',
-    3: '#f7c873',
+    ACTIVE: '#6fbf8b',
+    CANCELED: '#5786b8',
+    FINISHED: '#f7c873',
   });
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
     null
@@ -19,14 +22,16 @@ export default function Projects() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch('/src/assets/projects.json')
-      .then((response) => response.json())
-      .then((data) => setProjects(data))
-      .catch((error) => console.error('Error fetching projects:', error));
+    getProject(projectId)
+      .then((data: ProjectItem) => setProjects([data]))
+      .catch((error: any) => console.error('Error fetching projects:', error));
   }, []);
+  console.log('projects', projects);
 
   const filteredProjects = useMemo(() => {
     const lowerBusca = search.toLowerCase();
+    if (!search) return projects;
+    if (!projects) return [];
     return projects.filter((project) =>
       project.name.toLowerCase().includes(lowerBusca)
     );
@@ -72,10 +77,6 @@ export default function Projects() {
                     <span style={{ fontWeight: 500 }}>Prazo: </span>
                     {project.date}
                   </div>
-                  <div className='project_unit_value'>
-                    <span style={{ fontWeight: 500 }}>Valor(unid): </span>
-                    {project.unit_value}
-                  </div>
                   <button
                     className='project_view_btn'
                     style={{
@@ -117,9 +118,6 @@ export default function Projects() {
             </span>
             <span>
               <strong>Status:</strong> {selectedProject.status}
-            </span>
-            <span>
-              <strong>Valor (unid):</strong> {selectedProject.unit_value}
             </span>
           </div>
         </div>

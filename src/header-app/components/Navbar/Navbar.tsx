@@ -57,15 +57,12 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
               </a>
             </li>
             <li className='nav_item'>
-              <a href='/stock' className='nav_link'>
-                Cadastro
+              <a href='/item_register' className='nav_link'>
+                Cadastrar
               </a>
             </li>
-
             <li className='nav_item'>
-              <a href='/sales' className='nav_link'>
-                Vendas
-              </a>
+              <span className='nav_link'>Vendas</span>
             </li>
           </div>
           <div className='nav_right'>
