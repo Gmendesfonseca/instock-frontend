@@ -47,13 +47,13 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
         <ul className='nav_list'>
           <div className='nav_left'>
             <li className='nav_item'>
-              <a href='/items' className='nav_link'>
-                Itens
+              <a href='/projects' className='nav_link'>
+                Projetos
               </a>
             </li>
             <li className='nav_item'>
-              <a href='/projects' className='nav_link'>
-                Projetos
+              <a href='/items' className='nav_link'>
+                Itens
               </a>
             </li>
             <li className='nav_item'>

@@ -1,21 +1,28 @@
+import { useEffect, useState } from 'react';
 import { Item } from '../../header-app/interfaces/Item';
 import './project_items.css';
+import { getProducts, Product } from '@/services/products';
+import { useAuth } from '@/header-app/hooks/useAuth';
+
+const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
 export default function ProjectItems() {
-  const items: Item[] = Array.from({ length: 20 }, (_, index) => ({
-    id: index,
-    name: `Item ${index + 1}`,
-    price: (Math.random() * 100).toFixed(2),
-    quantity: Math.floor(Math.random() * 100),
-    amount: Math.floor(Math.random() * 100),
-    unit: 'kg',
-  }));
+  const user = useAuth();
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    getProducts(company_id)
+      .then((data: Product[]) => setProducts(data))
+      .catch((error: any) => console.error('Error fetching products:', error));
+  }, []);
+  console.log('products', products);
 
   return (
     <div className='project_items'>
-      {items.map((item) => (
-        <div key={item.id}>
-          <span>{item.name}</span>
+      {products.map((product) => (
+        <div key={product.id}>
+          <span>{product.name}</span>
+          <span>{product.quantity}</span>
         </div>
       ))}
     </div>

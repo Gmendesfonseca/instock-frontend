@@ -1,16 +1,32 @@
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './items.css';
 import { Item } from '../../header-app/interfaces/Item';
+import { useAuth } from '@/header-app/hooks/useAuth';
+import { useState, useEffect, useMemo } from 'react';
+import { getProducts, Product } from '@/services/products';
+
+const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
 export default function Items() {
-  const items: Item[] = Array.from({ length: 20 }, (_, index) => ({
-    id: index,
-    name: `Item ${index + 1}`,
-    price: (Math.random() * 100).toFixed(2),
-    quantity: Math.floor(Math.random() * 100),
-    amount: Math.floor(Math.random() * 100),
-    unit: 'kg',
-  }));
+  const user = useAuth();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    getProducts(company_id)
+      .then((data: Product[]) => setProducts(data))
+      .catch((error: any) => console.error('Error fetching products:', error));
+  }, []);
+  console.log('products', products);
+
+  const filteredProducts = useMemo(() => {
+    const lowerBusca = search.toLowerCase();
+    if (!search) return products;
+    if (!Items) return [];
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(lowerBusca)
+    );
+  }, [products, search]);
 
   return (
     <DefaultMainLayout>
@@ -22,12 +38,12 @@ export default function Items() {
           <h3>Medida</h3>
         </div>
         <div className='items'>
-          {items.map((item) => (
-            <div key={item.id} className='item'>
-              <span>{item.name}</span>
-              <span>{item.price}</span>
-              <span>{item.quantity}</span>
-              <span>{item.unit}</span>
+          {products.map((product) => (
+            <div key={product.id} className='item'>
+              <span>{product.name}</span>
+              <span>{product.purchase_price}</span>
+              <span>{product.quantity}</span>
+              <span>{product.unit_measurement}</span>
             </div>
           ))}
         </div>

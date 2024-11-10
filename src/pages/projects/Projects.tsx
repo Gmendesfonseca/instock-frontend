@@ -1,15 +1,14 @@
-import { useState, useEffect, useMemo, SetStateAction } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './projects.css';
 import Filter from '@/components/filter/Filter';
 import NewProjects from '@/components/new_projects/NewProjects';
-import { ProjectItem } from '@/services/projects';
+import { getProjectsByCompany, ProjectItem } from '@/services/projects';
 import ProjectItems from './ProjectItems';
-import { getProject } from '@/services/projects/requests';
-
-const projectId = '75cca565-6a02-4701-a9c3-8f9f72e1f796';
+import { useAuth } from '@/header-app/hooks/useAuth';
 
 export default function Projects() {
+  const { user } = useAuth();
   const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [colors] = useState({
     ACTIVE: '#6fbf8b',
@@ -22,8 +21,8 @@ export default function Projects() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    getProject(projectId)
-      .then((data: ProjectItem) => setProjects([data]))
+    getProjectsByCompany('658f7a87-22d1-4bda-a0cf-6b70921676ff')
+      .then((data: ProjectItem[]) => setProjects(data))
       .catch((error: any) => console.error('Error fetching projects:', error));
   }, []);
   console.log('projects', projects);
@@ -43,6 +42,14 @@ export default function Projects() {
 
   const closeModal = () => {
     setSelectedProject(null);
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   return (
@@ -70,31 +77,33 @@ export default function Projects() {
                 <div className='project_content'>
                   <div className='project_name'>{project.name}</div>
                   <div className='project_progress'>
-                    <span style={{ fontWeight: 500 }}>Progresso: </span>
-                    {project.progress}/{project.amount}
+                    <span style={{ fontWeight: 500 }}>quantidade: </span>
+                    {project.amount}
                   </div>
                   <div className='project_end_date'>
                     <span style={{ fontWeight: 500 }}>Prazo: </span>
-                    {project.date}
+                    {formatDate(project.end_date)}
                   </div>
-                  <button
-                    className='project_view_btn'
-                    style={{
-                      border: `1px solid ${colors[project.status]}`,
-                      transition: 'background-color 0.3s, border-color 0.3s',
-                    }}
-                    onClick={() => openModal(project)}
-                    onMouseEnter={(e) => {
-                      (e.target as HTMLButtonElement).style.backgroundColor =
-                        colors[project.status];
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.target as HTMLButtonElement).style.backgroundColor =
-                        '#f6f4f6';
-                    }}
-                  >
-                    Abrir
-                  </button>
+                  <div className='project_btn_div'>
+                    <button
+                      className='project_view_btn'
+                      style={{
+                        border: `1px solid ${colors[project.status]}`,
+                        transition: 'background-color 0.3s, border-color 0.3s',
+                      }}
+                      onClick={() => openModal(project)}
+                      onMouseEnter={(e) => {
+                        (e.target as HTMLButtonElement).style.backgroundColor =
+                          colors[project.status];
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.target as HTMLButtonElement).style.backgroundColor =
+                          '#f6f4f6';
+                      }}
+                    >
+                      Abrir
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -108,13 +117,15 @@ export default function Projects() {
               &times;
             </span>
             <h2>{selectedProject.name}</h2>
-            <span>{selectedProject.description}</span>
             <span>
-              <strong>Progresso:</strong> {selectedProject.progress}/
+              <strong>Descrição:</strong> {selectedProject.description}
+            </span>
+            <span>
+              <strong>Progresso:</strong>
               {selectedProject.amount}
             </span>
             <span>
-              <strong>Prazo:</strong> {selectedProject.date}
+              <strong>Prazo:</strong> {selectedProject.end_date}
             </span>
             <span>
               <strong>Status:</strong> {selectedProject.status}

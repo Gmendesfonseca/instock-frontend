@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './new_projects_modal.css';
+import { NewProject } from '../../services/projects/types';
+import { createProject } from '../../services/projects/requests';
+
+const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
 interface NewProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (project: {
-    name: string;
-    description: string;
-    status: string;
-  }) => void;
+  onSubmit: (project: NewProject) => void;
 }
 
 const NewProjectModal: React.FC<NewProjectModalProps> = ({
@@ -18,14 +18,39 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
+  const [client, setClient] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ name, description, status });
-    onClose();
+    try {
+      const startDate = new Date();
+      const formattedEndDate = formatDate(endDate);
+      const newProject = await createProject({
+        company_id: company_id,
+        name,
+        description,
+        status: 'ACTIVE',
+        start_date: new Date().toISOString(),
+        end_date: formattedEndDate,
+        progress: 0,
+        amount: 0,
+      });
+      onSubmit(newProject);
+      onClose();
+    } catch (error) {
+      console.error('Error creating project:', error);
+    }
   };
 
   return (
@@ -53,25 +78,23 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
               required
             />
           </div>
-          <div className='status'>
-            <label>Status</label>
-            <select
-              className='status_select'
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+          <div>
+            <label>Nome do Cliente</label>
+            <input
+              type='text'
+              value={client}
+              onChange={(e) => setClient(e.target.value)}
               required
-            >
-              <option value='' disabled>
-                Status do Projeto
-              </option>
-              <option value='1'>Em Planejamento</option>
-              <option value='2'>Em Andamento</option>
-              <option value='3'>Finalizado</option>
-            </select>
+            />
           </div>
           <div>
             <label>Prazo de Entrega</label>
-            <input type='date' />
+            <input
+              type='date'
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              required
+            />
           </div>
           <button type='submit'>Cadastrar</button>
         </form>
