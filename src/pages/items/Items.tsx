@@ -69,9 +69,16 @@ export default function Items() {
               <span>{product.quantity}</span>
               <span>{product.unit_measurement}</span>
               <div className='div_btn'>
-                <button className='rfid_btn' onClick={() => openModal(product)}>
-                  Adicionar
-                </button>
+                {product.tag.rfid ? (
+                  <span>{product.tag.rfid}</span>
+                ) : (
+                  <button
+                    className='rfid_btn'
+                    onClick={() => openModal(product)}
+                  >
+                    Adicionar
+                  </button>
+                )}
               </div>
             </div>
           ))}
