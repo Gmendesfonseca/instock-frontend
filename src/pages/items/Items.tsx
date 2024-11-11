@@ -39,6 +39,8 @@ export default function Items() {
       rfid,
       product_id: selectedProduct.id,
     });
+    isModalOpen(false);
+    setSelectedProduct(null);
   };
 
   const openModal = (product: Product) => {
