@@ -19,7 +19,9 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   const clientRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<string>('');
+  const [selectedProducts, setSelectedProducts] = useState<{
+    [key: string]: number;
+  }>({});
 
   useEffect(() => {
     getProducts('658f7a87-22d1-4bda-a0cf-6b70921676ff')
@@ -37,6 +39,21 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
     return `${year}-${month}-${day}`;
   };
 
+  const handleProductSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const productId = e.target.value;
+    setSelectedProducts((prevSelectedProducts) => ({
+      ...prevSelectedProducts,
+      [productId]: (prevSelectedProducts[productId] || 0) + 1,
+    }));
+  };
+
+  const handleQuantityChange = (productId: string, quantity: number) => {
+    setSelectedProducts((prevSelectedProducts) => ({
+      ...prevSelectedProducts,
+      [productId]: quantity,
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -52,7 +69,7 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
         end_date: formattedEndDate,
         progress: 0,
         amount: 0,
-        product_id: selectedProduct,
+        products: selectedProducts,
       });
       onSubmit(newProject);
       onClose();
@@ -69,40 +86,60 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
         </span>
         <h2>Novo Projeto</h2>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>Nome do Projeto</label>
-            <input type='text' ref={nameRef} required />
-          </div>
-          <div>
-            <label>Descrição</label>
-            <textarea ref={descriptionRef} required />
-          </div>
-          <div className='products'>
-            <label htmlFor='products'>Produtos</label>
-            <select
-              id='products'
-              value={selectedProduct}
-              onChange={(e) => setSelectedProduct(e.target.value)}
-              required
-            >
-              <option value='' disabled>
-                Selecione um produto
-              </option>
-              {products.map((product) => (
-                <option key={product.id} value={product.id}>
-                  {product.name}
+          <section className='left_side'>
+            <div>
+              <label>Nome do Projeto</label>
+              <input type='text' ref={nameRef} required />
+            </div>
+            <div>
+              <label>Descrição</label>
+              <textarea ref={descriptionRef} required />
+            </div>
+            <div>
+              <label>Nome do Cliente</label>
+              <input type='text' ref={clientRef} required />
+            </div>
+          </section>
+          <section className='right_side'>
+            <div>
+              <label>Prazo de Entrega</label>
+              <input type='date' ref={endDateRef} required />
+            </div>
+            <div className='products'>
+              <label htmlFor='products'>Produtos</label>
+              <select id='products' onChange={handleProductSelect} required>
+                <option value='' disabled>
+                  Selecione um produto
                 </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Nome do Cliente</label>
-            <input type='text' ref={clientRef} required />
-          </div>
-          <div>
-            <label>Prazo de Entrega</label>
-            <input type='date' ref={endDateRef} required />
-          </div>
+                {products.map((product) => (
+                  <option key={product.id} value={product.id}>
+                    {product.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className='selected_products'>
+              {Object.keys(selectedProducts).map((productId) => {
+                const product = products.find((p) => p.id === productId);
+                return (
+                  <div key={productId} className='selected_product'>
+                    <span>{product.name}</span>
+                    <input
+                      type='number'
+                      value={selectedProducts[productId]}
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          productId,
+                          parseInt(e.target.value)
+                        )
+                      }
+                      min='1'
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
           <button type='submit'>Cadastrar</button>
         </form>
       </div>
