@@ -4,6 +4,7 @@ import { createProject } from '@/services/projects/requests';
 import { getProducts } from '@/services/products/requests';
 import { NewItens } from '@/services/projects';
 import { Product } from '@/services/products';
+import { useAuth } from '@/header-app/hooks/useAuth';
 
 interface NewProjectModalProps {
   isOpen: boolean;
@@ -16,6 +17,8 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   onClose,
   onSubmit,
 }) => {
+  const { user } = useAuth();
+  const company_id = user.profile_id;
   const nameRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const clientRef = useRef<HTMLInputElement>(null);
@@ -28,7 +31,7 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   const [items, setItems] = useState<NewItens[]>([]);
 
   useEffect(() => {
-    getProducts('658f7a87-22d1-4bda-a0cf-6b70921676ff')
+    getProducts(company_id)
       .then((data: Product[]) => setProducts(data))
       .catch((error: any) => console.error('Error fetching products:', error));
   }, []);
@@ -161,9 +164,7 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
           </div>
           <div className='selected_products'>
             {Object.keys(selectedProducts).map((productId) => {
-              const product = products.find(
-                (p) => p.id === parseInt(productId)
-              );
+              const product = products.find((p) => p.id === productId);
 
               return (
                 <div key={productId} className='selected_product'>

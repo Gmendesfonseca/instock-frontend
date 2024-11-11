@@ -4,9 +4,12 @@ import './item_register.css';
 import { createProduct } from '@/services/products/requests';
 import { UnitMeasurement } from '@/services/products/types';
 import { useToast } from '@/header-app/hooks/useToast';
+import { useAuth } from '@/header-app/hooks/useAuth';
 
 export default function ItemRegister() {
   const { addToast } = useToast();
+  const { user } = useAuth();
+  const company_id = user.profile_id;
   const nameRef = useRef<HTMLInputElement>(null);
   const purchasePriceRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
@@ -28,7 +31,7 @@ export default function ItemRegister() {
     },
   ];
 
-  const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
+  // const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

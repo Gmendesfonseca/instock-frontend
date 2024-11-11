@@ -6,7 +6,6 @@ import Home from '@/pages/home/Home';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import Items from '@/pages/items/Items';
 import Projects from '@/pages/projects/Projects';
-import RFID from '@/pages/rfid';
 import ItemRegister from '@/pages/item_register/ItemRegister';
 
 export type RouteType = {
@@ -61,11 +60,6 @@ export function createRoutes() {
     {
       path: '/settings',
       element: <h1>Configurações</h1>,
-      permissions: routePermissions.COMPANY_ACCESS,
-    },
-    {
-      path: '/rfid',
-      element: <RFID />,
       permissions: routePermissions.COMPANY_ACCESS,
     },
     {

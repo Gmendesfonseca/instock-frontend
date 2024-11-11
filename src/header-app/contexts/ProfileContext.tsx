@@ -57,7 +57,6 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   }, []);
 
   return (
-    /* eslint-disable */
     <ProfileContext.Provider
       value={{
         me,
@@ -67,7 +66,6 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
     >
       {children}
     </ProfileContext.Provider>
-    /* eslint-enable */
   );
 };
 

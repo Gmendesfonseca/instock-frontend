@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
 import './project_items.css';
+import { useEffect, useState } from 'react';
 import { getProducts, Product } from '@/services/products';
-
-const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
+import { useAuth } from '@/header-app/hooks/useAuth';
 
 export default function ProjectItems() {
+  const { user } = useAuth();
+  const company_id = user.profile_id;
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -12,7 +13,6 @@ export default function ProjectItems() {
       .then((data: Product[]) => setProducts(data))
       .catch((error: any) => console.error('Error fetching products:', error));
   }, []);
-  console.log('products', products);
 
   return (
     <div className='project_items'>

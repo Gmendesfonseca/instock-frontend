@@ -25,7 +25,6 @@ export default function Projects() {
       .then((data: ProjectItem[]) => setProjects(data))
       .catch((error: any) => console.error('Error fetching projects:', error));
   }, []);
-  console.log('projects', projects);
 
   const filteredProjects = useMemo(() => {
     const lowerBusca = search.toLowerCase();

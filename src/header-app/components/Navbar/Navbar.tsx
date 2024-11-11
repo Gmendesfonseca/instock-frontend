@@ -24,7 +24,7 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
   signOut,
 }) => {
   const { addToast } = useToast();
-
+  const company_id = user.profile_id;
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,8 +63,6 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
     setIsModalOpen(false);
     setModalProduct(null);
   };
-
-  const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
   return (
     <HeaderProvider
