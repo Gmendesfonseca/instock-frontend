@@ -4,8 +4,8 @@ export type ProjectItem = {
   status: 'ACTIVE' | 'CANCELED' | 'FINISHED';
   end_date: string;
   progress: number;
-  amount: number;
   description: string;
+  client_name?: string;
 };
 
 export type NewProject = {
@@ -15,7 +15,6 @@ export type NewProject = {
   status: 'ACTIVE' | 'CANCELED' | 'FINISHED';
   end_date: string;
   progress: number;
-  amount: number;
   description: string;
   client_name?: string;
 };

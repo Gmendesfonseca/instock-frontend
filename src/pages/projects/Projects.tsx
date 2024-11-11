@@ -112,26 +112,31 @@ export default function Projects() {
       {selectedProject && (
         <div className='modal'>
           <div className='modal_content'>
-            <div>
-              <div className='modal_header' onClick={closeModal}>
-                &times;
-              </div>
+            <div className='modal_header'>
+              <div onClick={closeModal}>&times;</div>
               <div>
                 <h2>{selectedProject.name}</h2>
               </div>
             </div>
             <span>
-              <strong>Descrição:</strong> {selectedProject.description}
+              <strong>Status: </strong> {selectedProject.status}
+            </span>
+            {client_name ? (
+              <span>
+                <strong>Cliente: </strong> {selectedProject.client_name}
+              </span>
+            ) : (
+              ''
+            )}
+            <span>
+              <strong>Descrição: </strong> {selectedProject.description}
             </span>
             <span>
-              <strong>Progresso:</strong>
+              <strong>Progresso: </strong>
               {selectedProject.amount}
             </span>
             <span>
-              <strong>Prazo:</strong> {selectedProject.end_date}
-            </span>
-            <span>
-              <strong>Status:</strong> {selectedProject.status}
+              <strong>Prazo: </strong> {formatDate(selectedProject.end_date)}
             </span>
           </div>
         </div>

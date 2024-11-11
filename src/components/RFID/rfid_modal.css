@@ -27,6 +27,14 @@
   font-weight: bold;
 }
 
+.modal_body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
 .close:hover,
 .close:focus {
   color: black;

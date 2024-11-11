@@ -42,7 +42,7 @@ const RFIDModal: React.FC<RFIDModalProps> = ({
         </span>
         <h2>{product ? 'Produto Encontrado' : 'Aguardando RFID...'}</h2>
         {product && (
-          <div>
+          <div className='modal_body'>
             <p>
               <strong>Nome:</strong> {product.name}
             </p>

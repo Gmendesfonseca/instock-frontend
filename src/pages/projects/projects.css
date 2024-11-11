@@ -188,12 +188,14 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  position: relative;
+  bottom: 80px;
 }
 
 .modal_content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #fefefe;
   color: #000;
@@ -203,11 +205,16 @@
   width: 80%;
   max-width: 500px;
   border-radius: 8px;
+  overflow-y: auto;
 }
 
 .modal_content span {
+  position: relative;
+  top: 50px;
   width: 100%;
-  height: 20%;
+  height: 15%;
+  font-size: larger;
+  text-align: left;
 }
 
 .close {
