@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './items.css';
-import { Item } from '../../header-app/interfaces/Item';
+import { Product, getProducts } from '@/services/products';
 import { useAuth } from '@/header-app/hooks/useAuth';
-import { getProducts, Product } from '@/services/products';
 import RFIDModal from '@/components/RFID/RFIDModal';
-import { createTag } from '@/services/tags';
+import { createTag, getTag } from '@/services/tags';
 
 const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
@@ -15,32 +14,41 @@ export default function Items() {
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     getProducts(company_id)
       .then((data: Product[]) => setProducts(data))
       .catch((error: any) => console.error('Error fetching products:', error));
   }, []);
-  console.log('products', products);
 
   const filteredProducts = useMemo(() => {
     const lowerBusca = search.toLowerCase();
     if (!search) return products;
-    if (!Items) return [];
     return products.filter((product) =>
       product.name.toLowerCase().includes(lowerBusca)
     );
   }, [products, search]);
 
-  const handleRFIDReceived = (rfid: string) => {
-    if (!selectedProduct) return;
-    createTag({
-      company_id,
-      rfid,
-      product_id: selectedProduct.id,
-    });
-    isModalOpen(false);
-    setSelectedProduct(null);
+  const handleRFIDReceived = async (rfid: string) => {
+    try {
+      const tag = await getTag(rfid);
+      const product = products.find((p) => p.id === tag.product_id);
+      if (product) {
+        setModalProduct(product);
+      } else {
+        createTag({
+          company_id,
+          rfid,
+          product_id: selectedProduct?.id || '',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching tag:', error);
+    } finally {
+      setIsModalOpen(false);
+      setSelectedProduct(null);
+    }
   };
 
   const openModal = (product: Product) => {
@@ -51,6 +59,7 @@ export default function Items() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
+    setModalProduct(null);
   };
 
   return (
@@ -71,8 +80,8 @@ export default function Items() {
               <span>{product.quantity}</span>
               <span>{product.unit_measurement}</span>
               <div className='div_btn'>
-                {product.tag.rfid ? (
-                  <span>{product.tag.rfid}</span>
+                {product.rfid ? (
+                  <span>{product.rfid}</span>
                 ) : (
                   <button
                     className='rfid_btn'
@@ -90,6 +99,7 @@ export default function Items() {
         isOpen={isModalOpen}
         onClose={closeModal}
         onRFIDReceived={handleRFIDReceived}
+        product={modalProduct}
       />
     </DefaultMainLayout>
   );
