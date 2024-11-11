@@ -4,9 +4,9 @@ import { MeProps } from '../../interfaces/Me';
 import { IUser } from '../../interfaces/User';
 import { HeaderProvider } from '@/header-app/contexts/HeaderContext';
 import { Product, getProducts } from '@/services/products';
-import { createTag, getTag } from '@/services/tags';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import RFIDModal from '@/components/RFID/RFIDModal';
+import { useToast } from '@/header-app/hooks/useToast';
 
 // import NotificationSocketProvider from '@/header-app/contexts/NotificationSocketContext';
 
@@ -23,19 +23,8 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
   api,
   signOut,
 }) => {
-  const handleRFIDReceived = async (rfid: string) => {
-    try {
-      const product = products.find((p) => p.id === tag.product_id);
-      if (product) {
-        setModalProduct(product);
-      }
-    } catch (error) {
-      console.error('Error fetching tag:', error);
-    } finally {
-      setSelectedProduct(null);
-    }
-  };
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { addToast } = useToast();
+
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +33,27 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
     getProducts(company_id)
       .then((data: Product[]) => setProducts(data))
       .catch((error: any) => console.error('Error fetching products:', error));
-  }, []);
+  }, [isModalOpen]);
+
+  const handleRFIDReceived = async (rfid: string) => {
+    try {
+      const product = products.find((p) => p.tag?.rfid === rfid);
+      if (product) {
+        setModalProduct(product);
+        addToast({
+          type: 'success',
+          description: 'Produto encontrado!',
+        });
+      } else {
+        addToast({
+          type: 'error',
+          description: 'Produto não encontrado!',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching tag:', error);
+    }
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -52,7 +61,6 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedProduct(null);
     setModalProduct(null);
   };
 

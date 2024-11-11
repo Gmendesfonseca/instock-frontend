@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './items.css';
 import { Product, getProducts } from '@/services/products';
 import { useAuth } from '@/header-app/hooks/useAuth';
 import RFIDModal from '@/components/RFID/RFIDModal';
-import { createTag, getTag } from '@/services/tags';
+import { createTag } from '@/services/tags';
+import { useToast } from '@/header-app/hooks/useToast';
 
 const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
 export default function Items() {
   const user = useAuth();
+  const { addToast } = useToast();
   const [products, setProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +22,7 @@ export default function Items() {
     getProducts(company_id)
       .then((data: Product[]) => setProducts(data))
       .catch((error: any) => console.error('Error fetching products:', error));
-  }, []);
+  }, [selectedProduct]);
 
   const filteredProducts = useMemo(() => {
     const lowerBusca = search.toLowerCase();
@@ -32,29 +34,37 @@ export default function Items() {
 
   const handleRFIDReceived = async (rfid: string) => {
     try {
-      {
+      const product = products.find((p) => p.tag?.rfid === rfid);
+      if (!product) {
         createTag({
-          company_id,
           rfid,
+          company_id,
           product_id: selectedProduct?.id || '',
+        });
+        setSelectedProduct(null);
+        addToast({
+          type: 'success',
+          description: 'Tag cadastrada com sucesso!',
+        });
+        closeModal();
+      } else {
+        addToast({
+          type: 'error',
+          description: 'Já existe um produto com essa tag!',
         });
       }
     } catch (error) {
       console.error('Error fetching tag:', error);
-    } finally {
-      setIsModalOpen(false);
-      setSelectedProduct(null);
     }
   };
 
   const openModal = (product: Product) => {
-    setSelectedProduct(product);
     setIsModalOpen(true);
+    setSelectedProduct(product);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedProduct(null);
     setModalProduct(null);
   };
 
@@ -76,8 +86,8 @@ export default function Items() {
               <span>{product.quantity}</span>
               <span>{product.unit_measurement}</span>
               <div className='div_btn'>
-                {product.rfid ? (
-                  <span>{product.rfid}</span>
+                {product.tag?.rfid ? (
+                  <span>{product.tag.rfid}</span>
                 ) : (
                   <button
                     className='rfid_btn'
@@ -95,7 +105,6 @@ export default function Items() {
         isOpen={isModalOpen}
         onClose={closeModal}
         onRFIDReceived={handleRFIDReceived}
-        product={modalProduct}
       />
     </DefaultMainLayout>
   );

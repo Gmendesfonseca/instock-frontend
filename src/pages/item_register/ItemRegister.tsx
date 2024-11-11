@@ -45,6 +45,7 @@ export default function ItemRegister() {
         type: 'success',
         description: 'Item criado com sucesso!',
       });
+      window.location.replace('/items');
       console.log('Item created:', newItem);
     } catch (error) {
       console.error('Error creating item:', error);

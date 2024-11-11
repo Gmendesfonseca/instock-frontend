@@ -24,7 +24,6 @@ const RFIDModal: React.FC<RFIDModalProps> = ({
       ws.onmessage = (event) => {
         setRFID(event.data);
         onRFIDReceived(event.data);
-        onClose();
       };
       return () => {
         setRFID('');
@@ -42,7 +41,7 @@ const RFIDModal: React.FC<RFIDModalProps> = ({
           &times;
         </span>
         <h2>{product ? 'Produto Encontrado' : 'Aguardando RFID...'}</h2>
-        {product ? (
+        {product && (
           <div>
             <p>
               <strong>Nome:</strong> {product.name}
@@ -58,13 +57,9 @@ const RFIDModal: React.FC<RFIDModalProps> = ({
             </p>
             <p>
               <strong>RFID:</strong>
-              {rfid}
+              {product.tag?.rfid}
             </p>
           </div>
-        ) : (
-          <p>
-            {rfid ? `RFID Recebido: ${rfid}` : 'Aguardando leitura do RFID...'}
-          </p>
         )}
       </div>
     </div>

@@ -5,6 +5,9 @@ export type NewProduct = {
   quantity: number;
   unit_measurement: string;
   company_id: string;
+  tag?: {
+    rfid: string;
+  };
 };
 
 export type Product = {
