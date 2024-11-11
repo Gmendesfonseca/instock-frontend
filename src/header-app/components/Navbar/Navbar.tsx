@@ -3,6 +3,11 @@ import { AxiosInstance } from 'axios';
 import { MeProps } from '../../interfaces/Me';
 import { IUser } from '../../interfaces/User';
 import { HeaderProvider } from '@/header-app/contexts/HeaderContext';
+import { Product, getProducts } from '@/services/products';
+import { createTag, getTag } from '@/services/tags';
+import { useState, useEffect, useMemo } from 'react';
+import RFIDModal from '@/components/RFID/RFIDModal';
+
 // import NotificationSocketProvider from '@/header-app/contexts/NotificationSocketContext';
 
 interface props {
@@ -18,6 +23,41 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
   api,
   signOut,
 }) => {
+  const handleRFIDReceived = async (rfid: string) => {
+    try {
+      const product = products.find((p) => p.id === tag.product_id);
+      if (product) {
+        setModalProduct(product);
+      }
+    } catch (error) {
+      console.error('Error fetching tag:', error);
+    } finally {
+      setSelectedProduct(null);
+    }
+  };
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    getProducts(company_id)
+      .then((data: Product[]) => setProducts(data))
+      .catch((error: any) => console.error('Error fetching products:', error));
+  }, []);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+    setModalProduct(null);
+  };
+
+  const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
+
   return (
     <HeaderProvider
       value={{
@@ -66,6 +106,11 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
             </li>
           </div>
           <div className='nav_right'>
+            <li className='nav_item'>
+              <button onClick={() => openModal()} className='nav_link'>
+                Ler RFID
+              </button>
+            </li>
             <li className='nav_item'>
               {/* substituir span */}
               <span className='nav_link'>
@@ -129,6 +174,12 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
           </div>
         </ul>
       </nav>
+      <RFIDModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onRFIDReceived={handleRFIDReceived}
+        product={modalProduct}
+      />
       {/* </NotificationSocketProvider> */}
     </HeaderProvider>
   );

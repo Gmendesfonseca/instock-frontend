@@ -72,7 +72,7 @@ export default function Projects() {
                   <div
                     className='project_status'
                     style={{ backgroundColor: colors[project.status] }}
-                  ></div>
+                  />
                 </div>
                 <div className='project_content'>
                   <div className='project_name'>{project.name}</div>
@@ -113,9 +113,13 @@ export default function Projects() {
       {selectedProject && (
         <div className='modal'>
           <div className='modal_content'>
-            <div className='modal_header' onClick={closeModal}>
-              &times;
-              <h2>{selectedProject.name}</h2>
+            <div>
+              <div className='modal_header' onClick={closeModal}>
+                &times;
+              </div>
+              <div>
+                <h2>{selectedProject.name}</h2>
+              </div>
             </div>
             <span>
               <strong>Descrição:</strong> {selectedProject.description}

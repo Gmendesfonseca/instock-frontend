@@ -117,7 +117,7 @@ form button:hover {
   background-color: #2196f3;
 }
 
-.status {
+.status_modal {
   display: flex;
   flex-direction: column;
   width: 80%;

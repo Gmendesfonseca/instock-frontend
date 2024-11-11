@@ -32,11 +32,7 @@ export default function Items() {
 
   const handleRFIDReceived = async (rfid: string) => {
     try {
-      const tag = await getTag(rfid);
-      const product = products.find((p) => p.id === tag.product_id);
-      if (product) {
-        setModalProduct(product);
-      } else {
+      {
         createTag({
           company_id,
           rfid,

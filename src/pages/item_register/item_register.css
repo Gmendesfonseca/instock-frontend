@@ -41,4 +41,8 @@ textarea {
   padding: 12px;
   border-radius: 8px;
   margin-top: 32px;
+  border: none;
+  outline: none;
+  background-color: #2196f3;
+  color: #fff;
 }
