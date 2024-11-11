@@ -21,6 +21,7 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   const clientRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<string>('');
   const [selectedProducts, setSelectedProducts] = useState<{
     [key: string]: number;
   }>({});
@@ -31,6 +32,14 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
       .then((data: Product[]) => setProducts(data))
       .catch((error: any) => console.error('Error fetching products:', error));
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedProduct('');
+      setSelectedProducts({});
+      setItems([]);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -48,6 +57,7 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
       ...prevSelectedProducts,
       [productId]: (prevSelectedProducts[productId] || 0) + 1,
     }));
+    setSelectedProduct(''); // Reset the select value to empty
   };
 
   const handleQuantityChange = (productId: string, quantity: number) => {
@@ -55,6 +65,28 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
       ...prevSelectedProducts,
       [productId]: quantity,
     }));
+    setItems((prevItems) => {
+      const itemIndex = prevItems.findIndex(
+        (item) => item.product_id === productId
+      );
+      if (itemIndex !== -1) {
+        const updatedItems = [...prevItems];
+        updatedItems[itemIndex].amount = quantity;
+        return updatedItems;
+      } else {
+        return [...prevItems, { product_id: productId, amount: quantity }];
+      }
+    });
+  };
+
+  const handleRemoveProduct = (productId: string) => {
+    setSelectedProducts((prevSelectedProducts) => {
+      const { [productId]: _, ...rest } = prevSelectedProducts;
+      return rest;
+    });
+    setItems((prevItems) =>
+      prevItems.filter((item) => item.product_id !== productId)
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,73 +118,81 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   return (
     <div className='modal'>
       <div className='modal_content'>
-        <span className='close' onClick={onClose}>
-          &times;
-        </span>
-        <h2>Novo Projeto</h2>
+        <section className='modal_header'>
+          <span className='close' onClick={onClose}>
+            &times;
+          </span>
+          <h2>Novo Projeto</h2>
+        </section>
         <form onSubmit={handleSubmit}>
-          <section className='left_side'>
-            <div>
-              <label>Nome do Projeto</label>
-              <input type='text' ref={nameRef} required />
-            </div>
-            <div>
-              <label>Descrição</label>
-              <textarea ref={descriptionRef} required />
-            </div>
-            <div>
-              <label>Nome do Cliente</label>
-              <input type='text' ref={clientRef} required />
-            </div>
-          </section>
-          <section className='right_side'>
-            <div>
-              <label>Prazo de Entrega</label>
-              <input type='date' ref={endDateRef} required />
-            </div>
-            <div className='products'>
-              <label htmlFor='products'>Produtos</label>
-              <select id='products' onChange={handleProductSelect} required>
-                <option value='' disabled>
-                  Selecione um produto
+          <div>
+            <label>Nome do Projeto</label>
+            <input type='text' ref={nameRef} required />
+          </div>
+          <div>
+            <label>Descrição</label>
+            <textarea ref={descriptionRef} required />
+          </div>
+          <div>
+            <label>Nome do Cliente</label>
+            <input type='text' ref={clientRef} />
+          </div>
+          <div>
+            <label>Prazo de Entrega</label>
+            <input type='date' ref={endDateRef} required />
+          </div>
+          <div className='products'>
+            <label htmlFor='products'>Produtos</label>
+            <select
+              id='products'
+              value={selectedProduct}
+              onChange={handleProductSelect}
+              required
+            >
+              <option value='' disabled>
+                Selecione um produto
+              </option>
+              {products.map((product) => (
+                <option key={product.id} value={product.id}>
+                  {product.name}
                 </option>
-                {products.map((product) => (
-                  <option key={product.id} value={product.id}>
-                    {product.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className='selected_products'>
-              {Object.keys(selectedProducts).map((productId) => {
-                const product = products.find((p) => p.id === productId);
-                setItems([
-                  ...items,
-                  {
-                    product_id: productId,
-                    amount: selectedProducts[productId],
-                  },
-                ]);
-                return (
-                  <div key={productId} className='selected_product'>
-                    <span>{product?.name}</span>
+              ))}
+            </select>
+          </div>
+          <div className='selected_products'>
+            {Object.keys(selectedProducts).map((productId) => {
+              const product = products.find(
+                (p) => p.id === parseInt(productId)
+              );
+
+              return (
+                <div key={productId} className='selected_product'>
+                  <span>{product?.name}</span>
+                  <div className='product_quantity'>
                     <input
                       type='number'
                       value={selectedProducts[productId]}
-                      onChange={(e) =>
-                        handleQuantityChange(
-                          productId,
-                          parseInt(e.target.value)
-                        )
-                      }
+                      onChange={(e) => {
+                        const amount = parseInt(e.target.value);
+                        handleQuantityChange(productId, amount);
+                      }}
                       min='1'
                     />
+                    <button
+                      className='remove_product_btn'
+                      type='button'
+                      onClick={() => handleRemoveProduct(productId)}
+                    >
+                      Remover
+                    </button>
                   </div>
-                );
-              })}
-            </div>
-          </section>
-          <button type='submit'>Cadastrar</button>
+                </div>
+              );
+            })}
+          </div>
+          <button type='submit' className='submit_btn'>
+            Cadastrar
+          </button>
         </form>
       </div>
     </div>

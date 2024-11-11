@@ -113,10 +113,10 @@ export default function Projects() {
       {selectedProject && (
         <div className='modal'>
           <div className='modal_content'>
-            <span className='close' onClick={closeModal}>
+            <div className='modal_header' onClick={closeModal}>
               &times;
-            </span>
-            <h2>{selectedProject.name}</h2>
+              <h2>{selectedProject.name}</h2>
+            </div>
             <span>
               <strong>Descrição:</strong> {selectedProject.description}
             </span>

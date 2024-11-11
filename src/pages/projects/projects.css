@@ -184,10 +184,16 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.modal_header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .modal_content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: #fefefe;
   color: #000;
