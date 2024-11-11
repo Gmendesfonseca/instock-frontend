@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './new_projects_modal.css';
-import { NewProject } from '../../services/projects/types';
-import { createProject } from '../../services/projects/requests';
-
-const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
+import { createProject } from '@/services/projects/requests';
+import { getProducts, Product } from '@/services/products/requests';
 
 interface NewProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (project: NewProject) => void;
+  onSubmit: (project: any) => void;
 }
 
 const NewProjectModal: React.FC<NewProjectModalProps> = ({
@@ -16,10 +14,18 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   onClose,
   onSubmit,
 }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [client, setClient] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const nameRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const clientRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<string>('');
+
+  useEffect(() => {
+    getProducts('658f7a87-22d1-4bda-a0cf-6b70921676ff')
+      .then((data: Product[]) => setProducts(data))
+      .catch((error: any) => console.error('Error fetching products:', error));
+  }, []);
 
   if (!isOpen) return null;
 
@@ -35,16 +41,18 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
     e.preventDefault();
     try {
       const startDate = new Date();
-      const formattedEndDate = formatDate(endDate);
+      const formattedEndDate = formatDate(endDateRef.current?.value || '');
       const newProject = await createProject({
-        company_id: company_id,
-        name,
-        description,
+        company_id: '658f7a87-22d1-4bda-a0cf-6b70921676ff',
+        name: nameRef.current?.value || '',
+        description: descriptionRef.current?.value || '',
+        client_name: clientRef.current?.value || '',
         status: 'ACTIVE',
-        start_date: new Date().toISOString(),
+        start_date: startDate.toISOString(),
         end_date: formattedEndDate,
         progress: 0,
         amount: 0,
+        product_id: selectedProduct,
       });
       onSubmit(newProject);
       onClose();
@@ -63,38 +71,37 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
         <form onSubmit={handleSubmit}>
           <div>
             <label>Nome do Projeto</label>
-            <input
-              type='text'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+            <input type='text' ref={nameRef} required />
           </div>
           <div>
             <label>Descrição</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+            <textarea ref={descriptionRef} required />
+          </div>
+          <div className='products'>
+            <label htmlFor='products'>Produtos</label>
+            <select
+              id='products'
+              value={selectedProduct}
+              onChange={(e) => setSelectedProduct(e.target.value)}
               required
-            />
+            >
+              <option value='' disabled>
+                Selecione um produto
+              </option>
+              {products.map((product) => (
+                <option key={product.id} value={product.id}>
+                  {product.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label>Nome do Cliente</label>
-            <input
-              type='text'
-              value={client}
-              onChange={(e) => setClient(e.target.value)}
-              required
-            />
+            <input type='text' ref={clientRef} required />
           </div>
           <div>
             <label>Prazo de Entrega</label>
-            <input
-              type='date'
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-            />
+            <input type='date' ref={endDateRef} required />
           </div>
           <button type='submit'>Cadastrar</button>
         </form>

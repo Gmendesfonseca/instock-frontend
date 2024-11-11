@@ -8,7 +8,7 @@ export type Product = {
   unit_measurement: UnitMeasurementType;
 };
 
-export type UnitMeasurementType = 'KG' | 'L' | 'UNIT';
+export type UnitMeasurementType = KILOGRAM | LITER | UNIT;
 
 export const UnitMeasurement = {
   KILOGRAM: 'KG',

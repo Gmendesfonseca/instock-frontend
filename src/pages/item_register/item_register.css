@@ -5,6 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 130px;
 }
 
 .form {
@@ -14,16 +16,21 @@
   align-items: center;
   background-color: #2e2e2e;
   width: 600px;
-  height: 600px;
-  padding: 24px;
+  height: 750px;
   border-radius: 8px;
+  gap: 8px;
+}
+
+.form h1 {
+  padding: 24px;
 }
 
 form div {
   width: 80%;
 }
 
-.form input {
+.form input,
+textarea {
   padding: 12px;
   border-radius: 8px;
   border: none;
