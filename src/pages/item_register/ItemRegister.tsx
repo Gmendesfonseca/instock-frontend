@@ -3,13 +3,15 @@ import DefaultMainLayout from '@/header-app/components/DefaultMainLayout';
 import './item_register.css';
 import { createProduct } from '@/services/products/requests';
 import { UnitMeasurement } from '@/services/products/types';
+import { useToast } from '@/header-app/hooks/useToast';
 
 export default function ItemRegister() {
+  const { addToast } = useToast();
   const nameRef = useRef<HTMLInputElement>(null);
   const purchasePriceRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
-  const unitRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
+  const unitRef = useRef<HTMLSelectElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   const measurementOptions = [
     {
@@ -32,12 +34,16 @@ export default function ItemRegister() {
     e.preventDefault();
     try {
       const newItem = await createProduct({
-        name: nameRef?.current?.value,
-        purchase_price: parseFloat(purchasePriceRef?.current?.value),
-        quantity: parseInt(quantityRef?.current?.value),
-        unit_measurement: unitRef?.current?.value,
-        description: descriptionRef?.current?.value,
+        name: nameRef?.current?.value || '',
+        purchase_price: parseFloat(purchasePriceRef?.current?.value || ''),
+        quantity: parseInt(quantityRef?.current?.value || ''),
+        unit_measurement: unitRef?.current?.value || '',
+        description: descriptionRef?.current?.value || '',
         company_id: company_id,
+      });
+      addToast({
+        type: 'success',
+        description: 'Item criado com sucesso!',
       });
       console.log('Item created:', newItem);
     } catch (error) {

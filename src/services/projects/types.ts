@@ -17,4 +17,15 @@ export type NewProject = {
   progress: number;
   amount: number;
   description: string;
+  client_name?: string;
+};
+
+export type NewItens = {
+  product_id: string;
+  amount: number;
+};
+
+export type Payload = {
+  data: NewProject;
+  items: NewItens[];
 };

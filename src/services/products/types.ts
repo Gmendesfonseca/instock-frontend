@@ -1,14 +1,17 @@
-export type Product = {
-  id: number;
+export type NewProduct = {
   name: string;
   description: string;
   purchase_price: number;
-  sale_price: number;
   quantity: number;
-  unit_measurement: UnitMeasurementType;
+  unit_measurement: string;
+  company_id: string;
 };
 
-export type UnitMeasurementType = KILOGRAM | LITER | UNIT;
+export type Product = {
+  id: string;
+} & NewProduct;
+
+export type UnitMeasurementType = 'KILOGRAM' | 'LITER' | 'UNIT';
 
 export const UnitMeasurement = {
   KILOGRAM: 'KG',

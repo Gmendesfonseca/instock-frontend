@@ -55,6 +55,11 @@ export default function Register() {
           type: data.type,
         });
 
+        addToast({
+          type: 'success',
+          description: 'Cadastro realizado com sucesso!',
+        });
+
         return window.location.replace('/');
       } catch (err: any) {
         if (err instanceof Yup.ValidationError) {

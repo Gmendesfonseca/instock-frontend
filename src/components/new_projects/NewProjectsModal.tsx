@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './new_projects_modal.css';
 import { createProject } from '@/services/projects/requests';
-import { getProducts, Product } from '@/services/products/requests';
+import { getProducts } from '@/services/products/requests';
+import { NewItens } from '@/services/projects';
+import { Product } from '@/services/products';
 
 interface NewProjectModalProps {
   isOpen: boolean;
@@ -22,6 +24,7 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
   const [selectedProducts, setSelectedProducts] = useState<{
     [key: string]: number;
   }>({});
+  const [items, setItems] = useState<NewItens[]>([]);
 
   useEffect(() => {
     getProducts('658f7a87-22d1-4bda-a0cf-6b70921676ff')
@@ -60,16 +63,18 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
       const startDate = new Date();
       const formattedEndDate = formatDate(endDateRef.current?.value || '');
       const newProject = await createProject({
-        company_id: '658f7a87-22d1-4bda-a0cf-6b70921676ff',
-        name: nameRef.current?.value || '',
-        description: descriptionRef.current?.value || '',
-        client_name: clientRef.current?.value || '',
-        status: 'ACTIVE',
-        start_date: startDate.toISOString(),
-        end_date: formattedEndDate,
-        progress: 0,
-        amount: 0,
-        products: selectedProducts,
+        data: {
+          company_id: '658f7a87-22d1-4bda-a0cf-6b70921676ff',
+          name: nameRef.current?.value || '',
+          description: descriptionRef.current?.value || '',
+          client_name: clientRef.current?.value || '',
+          status: 'ACTIVE',
+          start_date: startDate.toISOString(),
+          end_date: formattedEndDate,
+          progress: 0,
+          amount: 0,
+        },
+        items: items,
       });
       onSubmit(newProject);
       onClose();
@@ -121,9 +126,16 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({
             <div className='selected_products'>
               {Object.keys(selectedProducts).map((productId) => {
                 const product = products.find((p) => p.id === productId);
+                setItems([
+                  ...items,
+                  {
+                    product_id: productId,
+                    amount: selectedProducts[productId],
+                  },
+                ]);
                 return (
                   <div key={productId} className='selected_product'>
-                    <span>{product.name}</span>
+                    <span>{product?.name}</span>
                     <input
                       type='number'
                       value={selectedProducts[productId]}
