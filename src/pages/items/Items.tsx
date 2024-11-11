@@ -5,6 +5,7 @@ import { Item } from '../../header-app/interfaces/Item';
 import { useAuth } from '@/header-app/hooks/useAuth';
 import { getProducts, Product } from '@/services/products';
 import RFIDModal from '@/components/RFID/RFIDModal';
+import { createTag } from '@/services/tags';
 
 const company_id = '658f7a87-22d1-4bda-a0cf-6b70921676ff';
 
@@ -32,8 +33,12 @@ export default function Items() {
   }, [products, search]);
 
   const handleRFIDReceived = (rfid: string) => {
-    console.log(`RFID recebido: ${rfid}`);
-    // Adicione a lógica para lidar com o RFID recebido
+    if (!selectedProduct) return;
+    createTag({
+      company_id,
+      rfid,
+      product_id: selectedProduct.id,
+    });
   };
 
   const openModal = (product: Product) => {

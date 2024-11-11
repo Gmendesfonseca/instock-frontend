@@ -12,7 +12,7 @@ export async function getProduct(id: string): Promise<Product> {
 }
 
 export async function createProduct(product: NewProduct): Promise<Product> {
-  const response = await api.post('/products', { data: product, items: [] });
+  const response = await api.post('/products', product);
   return response.data;
 }
 

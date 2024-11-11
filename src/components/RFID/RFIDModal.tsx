@@ -19,14 +19,12 @@ const RFIDModal: React.FC<RFIDModalProps> = ({
     if (isOpen) {
       const ws = new WebSocket('ws://localhost:3500');
       ws.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data) {
-          setRFID(data);
-          onRFIDReceived(data);
-          onClose();
-        }
+        setRFID(event.data);
+        onRFIDReceived(event.data);
+        onClose();
       };
       return () => {
+        setRFID('');
         ws.close();
       };
     }
