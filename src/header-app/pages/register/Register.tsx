@@ -27,6 +27,7 @@ export default function Register() {
         email: emailRef.current?.value || '',
         password: passwordRef.current?.value || '',
         confirmPassword: confirmPasswordRef.current?.value || '',
+        type: 'COMPANY',
       };
 
       try {
@@ -51,6 +52,7 @@ export default function Register() {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
+          type: data.type,
         });
 
         return window.location.replace('/');
