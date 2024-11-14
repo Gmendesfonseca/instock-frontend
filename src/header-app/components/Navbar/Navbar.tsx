@@ -3,6 +3,11 @@ import { AxiosInstance } from 'axios';
 import { MeProps } from '../../interfaces/Me';
 import { IUser } from '../../interfaces/User';
 import { HeaderProvider } from '@/header-app/contexts/HeaderContext';
+import { Product, getProducts } from '@/services/products';
+import { useState, useEffect } from 'react';
+import RFIDModal from '@/components/RFID/RFIDModal';
+import { useToast } from '@/header-app/hooks/useToast';
+
 // import NotificationSocketProvider from '@/header-app/contexts/NotificationSocketContext';
 
 interface props {
@@ -18,6 +23,47 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
   api,
   signOut,
 }) => {
+  const { addToast } = useToast();
+  const company_id = user.profile_id;
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    getProducts(company_id)
+      .then((data: Product[]) => setProducts(data))
+      .catch((error: any) => console.error('Error fetching products:', error));
+  }, [isModalOpen]);
+
+  const handleRFIDReceived = async (rfid: string) => {
+    try {
+      const product = products.find((p) => p.tag?.rfid === rfid);
+      if (product) {
+        setModalProduct(product);
+        addToast({
+          type: 'success',
+          description: 'Produto encontrado!',
+        });
+      } else {
+        addToast({
+          type: 'error',
+          description: 'Produto não encontrado!',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching tag:', error);
+    }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalProduct(null);
+  };
+
   return (
     <HeaderProvider
       value={{
@@ -47,28 +93,30 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
         <ul className='nav_list'>
           <div className='nav_left'>
             <li className='nav_item'>
-              <a href='/items' className='nav_link'>
-                Itens
-              </a>
-            </li>
-            <li className='nav_item'>
               <a href='/projects' className='nav_link'>
                 Projetos
               </a>
             </li>
             <li className='nav_item'>
-              <a href='/stock' className='nav_link'>
-                Cadastro
+              <a href='/items' className='nav_link'>
+                Itens
               </a>
             </li>
-
             <li className='nav_item'>
-              <a href='/sales' className='nav_link'>
-                Vendas
+              <a href='/item_register' className='nav_link'>
+                Cadastrar
               </a>
+            </li>
+            <li className='nav_item'>
+              <span className='nav_link'>Vendas</span>
             </li>
           </div>
           <div className='nav_right'>
+            <li className='nav_item'>
+              <button onClick={() => openModal()} className='nav_link'>
+                Ler RFID
+              </button>
+            </li>
             <li className='nav_item'>
               {/* substituir span */}
               <span className='nav_link'>
@@ -132,6 +180,12 @@ const Navbar: React.FC<React.PropsWithChildren<props>> = ({
           </div>
         </ul>
       </nav>
+      <RFIDModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onRFIDReceived={handleRFIDReceived}
+        product={modalProduct}
+      />
       {/* </NotificationSocketProvider> */}
     </HeaderProvider>
   );

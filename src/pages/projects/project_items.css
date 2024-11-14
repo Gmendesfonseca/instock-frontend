@@ -1,0 +1,16 @@
+.project_items {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 95%;
+  gap: 12px;
+}
+
+.project_items > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px;
+  background-color: #f6f4f6;
+  color: #000;
+  border-radius: 8px;
+}

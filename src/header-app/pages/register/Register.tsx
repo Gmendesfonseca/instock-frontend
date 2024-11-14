@@ -27,6 +27,7 @@ export default function Register() {
         email: emailRef.current?.value || '',
         password: passwordRef.current?.value || '',
         confirmPassword: confirmPasswordRef.current?.value || '',
+        type: 'COMPANY',
       };
 
       try {
@@ -51,9 +52,15 @@ export default function Register() {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
+          type: data.type,
         });
 
-        return window.location.replace('/login');
+        addToast({
+          type: 'success',
+          description: 'Cadastro realizado com sucesso!',
+        });
+
+        return window.location.replace('/');
       } catch (err: any) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -93,6 +100,7 @@ export default function Register() {
         <h1>REGISTER</h1>
         <form className='form_register' id='form' onSubmit={handleSubmit}>
           <input
+            ref={usernameRef}
             data-cy='username'
             type='text'
             placeholder='Username'
@@ -100,6 +108,7 @@ export default function Register() {
           />
           {errors.username && <span className='error'>{errors.username}</span>}
           <input
+            ref={emailRef}
             data-cy='email'
             type='text'
             placeholder='E-mail'
@@ -107,6 +116,7 @@ export default function Register() {
           />
           {errors.email && <span className='error'>{errors.email}</span>}
           <input
+            ref={passwordRef}
             data-cy='password'
             type='password'
             placeholder='Password'
@@ -114,6 +124,7 @@ export default function Register() {
           />
           {errors.password && <span className='error'>{errors.password}</span>}
           <input
+            ref={confirmPasswordRef}
             data-cy='confirm_password'
             type='password'
             placeholder='Confirm Password'
@@ -125,8 +136,8 @@ export default function Register() {
           <a href='/' data-cy='navigate_login' className='navigate_login'>
             Fazer login
           </a>
+          <BtnSign title='Registrar-se' />
         </form>
-        <BtnSign title='Registrar-se' />
       </div>
     </div>
   );

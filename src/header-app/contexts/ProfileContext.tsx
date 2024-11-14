@@ -34,12 +34,20 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   }, []);
 
   useEffect(() => {
-    if (window.location.pathname === '/') return;
+    if (
+      window.location.pathname === '/' ||
+      window.location.pathname === '/register'
+    )
+      return;
     getMe().then((data) => setMe(data));
   }, [getMe]);
 
   useEffect(() => {
-    if (window.location.pathname === '/') return;
+    if (
+      window.location.pathname === '/' ||
+      window.location.pathname === '/register'
+    )
+      return;
     const authToken = Cookies.get('authToken');
     const expiresIn = Cookies.get('expiresIn');
     const user = Cookies.get('user');
@@ -49,7 +57,6 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
   }, []);
 
   return (
-    /* eslint-disable */
     <ProfileContext.Provider
       value={{
         me,
@@ -59,7 +66,6 @@ const ProfileContextProvider: React.FC<React.PropsWithChildren<unknown>> = ({
     >
       {children}
     </ProfileContext.Provider>
-    /* eslint-enable */
   );
 };
 

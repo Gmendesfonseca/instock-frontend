@@ -1,9 +1,10 @@
-// src/components/new_projects/NewProjects.tsx
 import { useState } from 'react';
 import './new_projects.css';
 import NewProjectModal from './NewProjectsModal';
+import { useToast } from '@/header-app/hooks/useToast';
 
 export default function NewProjects() {
+  const { addToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -15,6 +16,10 @@ export default function NewProjects() {
   };
 
   const handleSubmit = (project: { name: string; description: string }) => {
+    addToast({
+      type: 'success',
+      description: 'Projeto criado com sucesso!',
+    });
     console.log('New project submitted:', project);
     // Add your logic to handle the new project submission
   };

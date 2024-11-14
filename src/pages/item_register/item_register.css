@@ -1,0 +1,48 @@
+.item_register {
+  height: calc(100vh - 184.5px);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 130px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2e2e2e;
+  width: 600px;
+  height: 750px;
+  border-radius: 8px;
+  gap: 8px;
+}
+
+.form h1 {
+  padding: 24px;
+}
+
+form div {
+  width: 80%;
+}
+
+.form input,
+textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.form button {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 32px;
+  border: none;
+  outline: none;
+  background-color: #2196f3;
+  color: #fff;
+}

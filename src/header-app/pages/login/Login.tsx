@@ -30,7 +30,7 @@ export default function Login() {
       return urlToRedirect;
     }
 
-    return '/home';
+    return '/projects';
   }, []);
 
   const handleSubmit = useCallback(

@@ -5,5 +5,6 @@ export type Project = {
   date: string;
   progress: number;
   amount: number;
+  unit_value: number;
   description: string;
 };

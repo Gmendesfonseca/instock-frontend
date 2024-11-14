@@ -1,26 +1,62 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: #2e2e2e;
+  background-color: transparent;
   margin-top: 64px;
   margin-left: 48px;
   margin-right: 48px;
   gap: 16px;
 }
+.items {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
 
 .item {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
   width: 100%;
-  gap: 16px;
   padding: 16px;
-  background-color: #3e3e3e;
+  background-color: #f6f4f6;
+  color: #000;
   border-radius: 8px;
+  text-align: center;
 }
 
 .items_info {
   display: flex;
   justify-content: space-around;
-  gap: 8px;
+  text-align: center;
+  padding: 16px;
+}
+
+.items_info > h3 {
+  width: 20%;
+}
+
+.item span {
+  width: 20%;
+}
+
+.div_btn {
+  width: 20%;
+}
+
+.rfid_btn {
+  width: 100px;
+  height: 50px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background-color: #2196f3;
+  color: #fff;
+  cursor: pointer;
+}
+
+.rfid_btn:hover {
+  background-color: #1269b1;
 }

@@ -1,5 +1,5 @@
 import api from '../api';
-import { NewProject, ProjectItem } from './types';
+import { Payload, ProjectItem } from './types';
 
 export async function getProjectsByCompany(
   company_id: string
@@ -13,7 +13,7 @@ export async function getProject(project_id: string): Promise<ProjectItem> {
   return response.data;
 }
 
-export async function createProject(project: NewProject): Promise<ProjectItem> {
+export async function createProject(project: Payload): Promise<ProjectItem> {
   const response = await api.post('/projects', project);
   return response.data;
 }
