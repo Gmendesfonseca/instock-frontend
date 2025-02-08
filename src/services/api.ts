@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { links } from '../header-app/config/links';
+import { links } from '@/config/links';
 
 export const api = axios.create({
-  baseURL: links.api,
+  baseURL: links.api.url,
 });
 
 export default api;

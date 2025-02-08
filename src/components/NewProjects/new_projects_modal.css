@@ -1,0 +1,137 @@
+.new_projects_modal {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.new_projects_modal_header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.new_projects_modal_content {
+  overflow: auto;
+  background-color: #fff;
+  height: 600px;
+  padding: 24px;
+  width: 600px;
+  border: 1px solid #888;
+  min-width: calc(fit-content + 32px);
+}
+
+.new_projects_modal_header h2 {
+  position: relative;
+  margin-bottom: 24px;
+  right: 35%;
+}
+
+.close {
+  height: fit-content;
+  width: fit-content;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  min-height: fit-content;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form label {
+  margin-bottom: 5px;
+}
+
+form input,
+form textarea,
+form select {
+  padding: 8px;
+  margin-top: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #242424;
+  width: 100%;
+  resize: none;
+}
+
+.selected_product {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  resize: none;
+}
+
+.product_quantity {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.product_quantity input {
+  width: 30%;
+}
+
+.remove_product_btn {
+  height: 40px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 8px;
+  resize: none;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.submit_btn {
+  padding: 10px 24px;
+  margin-top: 12px;
+  font-size: 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+form button:hover {
+  background-color: #2196f3;
+}
+
+.status_modal {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.status_select {
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+}

@@ -1,11 +1,13 @@
+import { Product } from '../products';
+
 export type ProjectItem = {
   id: number;
   name: string;
   status: 'ACTIVE' | 'CANCELED' | 'FINISHED';
   end_date: string;
-  progress: number;
   description: string;
   client_name?: string;
+  products: Product[];
 };
 
 export type NewProject = {
@@ -14,7 +16,6 @@ export type NewProject = {
   start_date: string;
   status: 'ACTIVE' | 'CANCELED' | 'FINISHED';
   end_date: string;
-  progress: number;
   description: string;
   client_name?: string;
 };

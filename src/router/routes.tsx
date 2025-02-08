@@ -1,12 +1,13 @@
+import { lazy } from 'react';
 import { routePermissions } from '@/utils/permissions';
 import { RouteObject } from 'react-router-dom';
-import Login from '@/header-app/pages/login/Login';
-import Register from '@/header-app/pages/register/Register';
-import Home from '@/pages/home/Home';
-import Dashboard from '@/pages/dashboard/Dashboard';
-import Items from '@/pages/items/Items';
-import Projects from '@/pages/projects/Projects';
-import ItemRegister from '@/pages/item_register/ItemRegister';
+
+const Login = lazy(() => import('@/pages/Login'));
+const Register = lazy(() => import('@/pages/Register'));
+const Home = lazy(() => import('@/pages/Home'));
+const Items = lazy(() => import('@/pages/Items'));
+const Projects = lazy(() => import('@/pages/Projects'));
+const ItemRegister = lazy(() => import('@/pages/ItemRegister'));
 
 export type RouteType = {
   path: string;
@@ -31,11 +32,6 @@ export function createRoutes() {
     {
       path: '/home',
       element: <Home />,
-    },
-    {
-      path: '/dashboard',
-      element: <Dashboard />,
-      permissions: routePermissions.COMPANY_ACCESS,
     },
     {
       path: '/items',

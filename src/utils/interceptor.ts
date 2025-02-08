@@ -2,8 +2,8 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { AxiosInstance } from 'axios';
 
-import { decode } from '@/header-app/utils/crypto';
-import { TokenData } from '@/header-app/interfaces/TokenData';
+import { decode } from '@/utils/crypto';
+import { TokenData } from '@/interfaces/TokenData';
 
 export interface InterceptorDependencies {
   signOut: () => void;

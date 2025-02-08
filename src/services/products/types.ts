@@ -8,6 +8,9 @@ export type NewProduct = {
   tag?: {
     rfid: string;
   };
+  pivot?: {
+    amount: number;
+  };
 };
 
 export type Product = {

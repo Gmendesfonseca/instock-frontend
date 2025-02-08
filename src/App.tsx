@@ -1,8 +1,8 @@
-import { AuthProvider } from './header-app/contexts/AuthContext';
-import ProfileContextProvider from './header-app/contexts/ProfileContext';
-import { ToastProvider } from './header-app/hooks/useToast';
+import { AuthProvider } from '@/contexts/AuthContext';
+import ProfileContextProvider from '@/contexts/ProfileContext';
+import { ToastProvider } from '@/hooks/useToast';
 import { RenderRoutes } from './router/router';
-// import { PermissionsProvider } from './header-app/contexts/Permissions';
+// import { PermissionsProvider } from '@/contexts/Permissions';
 
 function App() {
   return (
